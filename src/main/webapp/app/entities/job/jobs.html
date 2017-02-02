@@ -1,0 +1,88 @@
+<div>
+    <h2>Jobs</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="job.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Job
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th><span>Title</span></th>
+                    <th><span>Profession</span></th>
+                    <th><span>Duration</span></th>
+                    <th><span>Term</span></th>
+                    <th><span>Referral Fee</span></th>
+                    <th><span>Short Description</span></th>
+                    <th><span>Long Description</span></th>
+                    <th><span>Type</span></th>
+                    <th><span>Status</span></th>
+                    <th><span>Work Permit</span></th>
+                    <th><span>Skill</span></th>
+                    <th><span>Created On</span></th>
+                    <th><span>Updated On</span></th>
+                    <th><span>Job Group</span></th>
+                    <th><span>Renewable</span></th>
+                    <th><span>Salary</span></th>
+                    <th><span>Job URL</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="job in vm.jobs track by job.id">
+                    <td><a ui-sref="job-detail({id:job.id})">{{job.id}}</a></td>
+                    <td>{{job.title}}</td>
+                    <td>{{job.profession}}</td>
+                    <td>{{job.duration}}</td>
+                    <td>{{job.term}}</td>
+                    <td>{{job.referralFee}}</td>
+                    <td>{{job.shortDescription}}</td>
+                    <td>{{job.longDescription}}</td>
+                    <td>{{job.type}}</td>
+                    <td>{{job.status}}</td>
+                    <td>{{job.workPermit}}</td>
+                    <td>{{job.skill}}</td>
+                    <td>{{job.createdOn | date:'medium'}}</td>
+                    <td>{{job.updatedOn | date:'medium'}}</td>
+                    <td>{{job.jobGroup}}</td>
+                    <td>{{job.renewable}}</td>
+                    <td>{{job.salary}}</td>
+                    <td>{{job.jobURL}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="job-detail({id:job.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="job.edit({id:job.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="job.delete({id:job.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

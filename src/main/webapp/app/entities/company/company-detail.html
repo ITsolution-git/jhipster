@@ -1,0 +1,43 @@
+
+<div>
+    <h2><span>Company</span> {{vm.company.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Company Name</span></dt>
+        <dd>
+            <span>{{vm.company.companyName}}</span>
+        </dd>
+        <dt><span>Department</span></dt>
+        <dd>
+            <span>{{vm.company.department}}</span>
+        </dd>
+        <dt><span>Website</span></dt>
+        <dd>
+            <span>{{vm.company.website}}</span>
+        </dd>
+        <dt><span>Hr Email</span></dt>
+        <dd>
+            <span>{{vm.company.hrEmail}}</span>
+        </dd>
+        <dt><span>Manager Email</span></dt>
+        <dd>
+            <span>{{vm.company.managerEmail}}</span>
+        </dd>
+        <dt><span>Phone Number</span></dt>
+        <dd>
+            <span>{{vm.company.phoneNumber}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="company-detail.edit({id:vm.company.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

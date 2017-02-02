@@ -1,0 +1,107 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "25"
+        },
+        {
+            "fieldName": "profession",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "duration",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "term",
+            "fieldType": "Term",
+            "fieldValues": "HOUR,DAY,WEEK,MONTH,YEAR"
+        },
+        {
+            "fieldName": "referralFee",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "shortDescription",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "longDescription",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "1000"
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "JobType",
+            "fieldValues": "CONTRACT,FULL_TIME,PART_TIME,CONTRACT_TO_HIRE,W2"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "Status",
+            "fieldValues": "OPEN,CLOSED,DELETED,ACCEPTED,REJECTED"
+        },
+        {
+            "fieldName": "workPermit",
+            "fieldType": "WorkPermit",
+            "fieldValues": "GREENCARD, CITIZEN, H1B, VISITOR, WORK_VISA, OTHER"
+        },
+        {
+            "fieldName": "skill",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createdOn",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "updatedOn",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "jobGroup",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "renewable",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "salary",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "jobURL",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170202020055",
+    "dto": "no",
+    "service": "serviceImpl",
+    "entityTableName": "job",
+    "pagination": "no"
+}

@@ -1,0 +1,87 @@
+
+<div>
+    <h2><span>Job</span> {{vm.job.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Title</span></dt>
+        <dd>
+            <span>{{vm.job.title}}</span>
+        </dd>
+        <dt><span>Profession</span></dt>
+        <dd>
+            <span>{{vm.job.profession}}</span>
+        </dd>
+        <dt><span>Duration</span></dt>
+        <dd>
+            <span>{{vm.job.duration}}</span>
+        </dd>
+        <dt><span>Term</span></dt>
+        <dd>
+            <span>{{vm.job.term}}</span>
+        </dd>
+        <dt><span>Referral Fee</span></dt>
+        <dd>
+            <span>{{vm.job.referralFee}}</span>
+        </dd>
+        <dt><span>Short Description</span></dt>
+        <dd>
+            <span>{{vm.job.shortDescription}}</span>
+        </dd>
+        <dt><span>Long Description</span></dt>
+        <dd>
+            <span>{{vm.job.longDescription}}</span>
+        </dd>
+        <dt><span>Type</span></dt>
+        <dd>
+            <span>{{vm.job.type}}</span>
+        </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+            <span>{{vm.job.status}}</span>
+        </dd>
+        <dt><span>Work Permit</span></dt>
+        <dd>
+            <span>{{vm.job.workPermit}}</span>
+        </dd>
+        <dt><span>Skill</span></dt>
+        <dd>
+            <span>{{vm.job.skill}}</span>
+        </dd>
+        <dt><span>Created On</span></dt>
+        <dd>
+            <span>{{vm.job.createdOn | date:'medium'}}</span>
+        </dd>
+        <dt><span>Updated On</span></dt>
+        <dd>
+            <span>{{vm.job.updatedOn | date:'medium'}}</span>
+        </dd>
+        <dt><span>Job Group</span></dt>
+        <dd>
+            <span>{{vm.job.jobGroup}}</span>
+        </dd>
+        <dt><span>Renewable</span></dt>
+        <dd>
+            <span>{{vm.job.renewable}}</span>
+        </dd>
+        <dt><span>Salary</span></dt>
+        <dd>
+            <span>{{vm.job.salary}}</span>
+        </dd>
+        <dt><span>Job URL</span></dt>
+        <dd>
+            <span>{{vm.job.jobURL}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="job-detail.edit({id:vm.job.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

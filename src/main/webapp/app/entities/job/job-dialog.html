@@ -1,0 +1,213 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myJobLabel">Create or edit a Job</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.job.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.job.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_title">Title</label>
+            <input type="text" class="form-control" name="title" id="field_title"
+                    ng-model="vm.job.title"
+                    required ng-maxlength="25" />
+            <div ng-show="editForm.title.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.title.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.title.$error.maxlength">
+                    This field cannot be longer than 25 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_profession">Profession</label>
+            <input type="text" class="form-control" name="profession" id="field_profession"
+                    ng-model="vm.job.profession"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_duration">Duration</label>
+            <input type="number" class="form-control" name="duration" id="field_duration"
+                    ng-model="vm.job.duration"
+                    required />
+            <div ng-show="editForm.duration.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.duration.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.duration.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_term">Term</label>
+            <select class="form-control" name="term" ng-model="vm.job.term" id="field_term">
+                <option value="HOUR">HOUR</option>
+                <option value="DAY">DAY</option>
+                <option value="WEEK">WEEK</option>
+                <option value="MONTH">MONTH</option>
+                <option value="YEAR">YEAR</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_referralFee">Referral Fee</label>
+            <input type="number" class="form-control" name="referralFee" id="field_referralFee"
+                    ng-model="vm.job.referralFee"
+                    required />
+            <div ng-show="editForm.referralFee.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.referralFee.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.referralFee.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_shortDescription">Short Description</label>
+            <input type="text" class="form-control" name="shortDescription" id="field_shortDescription"
+                    ng-model="vm.job.shortDescription"
+                    required ng-maxlength="50" />
+            <div ng-show="editForm.shortDescription.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.shortDescription.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.shortDescription.$error.maxlength">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_longDescription">Long Description</label>
+            <input type="text" class="form-control" name="longDescription" id="field_longDescription"
+                    ng-model="vm.job.longDescription"
+                    required ng-maxlength="1000" />
+            <div ng-show="editForm.longDescription.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.longDescription.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.longDescription.$error.maxlength">
+                    This field cannot be longer than 1000 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_type">Type</label>
+            <select class="form-control" name="type" ng-model="vm.job.type" id="field_type">
+                <option value="CONTRACT">CONTRACT</option>
+                <option value="FULL_TIME" data-translate="isoftnetApp.JobType.FULL_TIME">FULL_TIME</option>
+                <option value="PART_TIME" data-translate="isoftnetApp.JobType.PART_TIME">PART_TIME</option>
+                <option value="CONTRACT_TO_HIRE" data-translate="isoftnetApp.JobType.CONTRACT_TO_HIRE">CONTRACT_TO_HIRE</option>
+                <option value="W2">W2</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_status">Status</label>
+            <select class="form-control" name="status" ng-model="vm.job.status" id="field_status">
+                <option value="OPEN">OPEN</option>
+                <option value="CLOSED">CLOSED</option>
+                <option value="DELETED">DELETED</option>
+                <option value="ACCEPTED">ACCEPTED</option>
+                <option value="REJECTED">REJECTED</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_workPermit">Work Permit</label>
+            <select class="form-control" name="workPermit" ng-model="vm.job.workPermit" id="field_workPermit">
+                <option value="GREENCARD">GREENCARD</option>
+                <option value="CITIZEN">CITIZEN</option>
+                <option value="H1B">H1B</option>
+                <option value="VISITOR">VISITOR</option>
+                <option value="WORK_VISA" data-translate="isoftnetApp.WorkPermit.WORK_VISA">WORK_VISA</option>
+                <option value="OTHER">OTHER</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_skill">Skill</label>
+            <input type="text" class="form-control" name="skill" id="field_skill"
+                    ng-model="vm.job.skill"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_createdOn">Created On</label>
+                <div class="input-group">
+                    <input id="field_createdOn" type="text" class="form-control" name="createdOn" datetime-picker="{{dateformat}}" ng-model="vm.job.createdOn" is-open="vm.datePickerOpenStatus.createdOn"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('createdOn')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_updatedOn">Updated On</label>
+                <div class="input-group">
+                    <input id="field_updatedOn" type="text" class="form-control" name="updatedOn" datetime-picker="{{dateformat}}" ng-model="vm.job.updatedOn" is-open="vm.datePickerOpenStatus.updatedOn"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('updatedOn')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_jobGroup">Job Group</label>
+            <input type="text" class="form-control" name="jobGroup" id="field_jobGroup"
+                    ng-model="vm.job.jobGroup"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_renewable">Renewable</label>
+            <input type="checkbox" class="form-control" name="renewable" id="field_renewable"
+                    ng-model="vm.job.renewable"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_salary">Salary</label>
+            <input type="number" class="form-control" name="salary" id="field_salary"
+                    ng-model="vm.job.salary"
+                    required />
+            <div ng-show="editForm.salary.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.salary.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.salary.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_jobURL">Job URL</label>
+            <input type="text" class="form-control" name="jobURL" id="field_jobURL"
+                    ng-model="vm.job.jobURL"
+                     />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

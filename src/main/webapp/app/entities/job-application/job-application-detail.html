@@ -1,0 +1,51 @@
+
+<div>
+    <h2><span>Job Application</span> {{vm.jobApplication.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Job Id</span></dt>
+        <dd>
+            <span>{{vm.jobApplication.jobId}}</span>
+        </dd>
+        <dt><span>Cover Note</span></dt>
+        <dd>
+            <span>{{vm.jobApplication.coverNote}}</span>
+        </dd>
+        <dt><span>Resume Name</span></dt>
+        <dd>
+            <span>{{vm.jobApplication.resumeName}}</span>
+        </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+            <span>{{vm.jobApplication.status}}</span>
+        </dd>
+        <dt><span>User Id</span></dt>
+        <dd>
+            <span>{{vm.jobApplication.userId}}</span>
+        </dd>
+        <dt><span>Referred By</span></dt>
+        <dd>
+            <span>{{vm.jobApplication.referredBy}}</span>
+        </dd>
+        <dt><span>Created On</span></dt>
+        <dd>
+            <span>{{vm.jobApplication.createdOn | date:'medium'}}</span>
+        </dd>
+        <dt><span>Updated On</span></dt>
+        <dd>
+            <span>{{vm.jobApplication.updatedOn | date:'medium'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="job-application-detail.edit({id:vm.jobApplication.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

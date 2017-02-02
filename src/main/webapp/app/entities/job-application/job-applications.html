@@ -1,0 +1,70 @@
+<div>
+    <h2>Job Applications</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="job-application.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Job Application
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th><span>Job Id</span></th>
+                    <th><span>Cover Note</span></th>
+                    <th><span>Resume Name</span></th>
+                    <th><span>Status</span></th>
+                    <th><span>User Id</span></th>
+                    <th><span>Referred By</span></th>
+                    <th><span>Created On</span></th>
+                    <th><span>Updated On</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="jobApplication in vm.jobApplications track by jobApplication.id">
+                    <td><a ui-sref="job-application-detail({id:jobApplication.id})">{{jobApplication.id}}</a></td>
+                    <td>{{jobApplication.jobId}}</td>
+                    <td>{{jobApplication.coverNote}}</td>
+                    <td>{{jobApplication.resumeName}}</td>
+                    <td>{{jobApplication.status}}</td>
+                    <td>{{jobApplication.userId}}</td>
+                    <td>{{jobApplication.referredBy}}</td>
+                    <td>{{jobApplication.createdOn | date:'medium'}}</td>
+                    <td>{{jobApplication.updatedOn | date:'medium'}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="job-application-detail({id:jobApplication.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="job-application.edit({id:jobApplication.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="job-application.delete({id:jobApplication.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
