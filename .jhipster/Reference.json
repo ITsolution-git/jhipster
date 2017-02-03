@@ -1,0 +1,51 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "userId",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "fullName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "phoneNumber",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "referenceType",
+            "fieldType": "JobReferenceType",
+            "fieldValues": "MANAGER,COWORKER,FRIEND,HR"
+        },
+        {
+            "fieldName": "company",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        }
+    ],
+    "changelogDate": "20170203140124",
+    "dto": "no",
+    "service": "serviceImpl",
+    "entityTableName": "reference",
+    "pagination": "no"
+}

@@ -1,0 +1,67 @@
+
+<div>
+    <h2><span>Job Rating</span> {{vm.jobRating.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>User Id</span></dt>
+        <dd>
+            <span>{{vm.jobRating.userId}}</span>
+        </dd>
+        <dt><span>Job Id</span></dt>
+        <dd>
+            <span>{{vm.jobRating.jobId}}</span>
+        </dd>
+        <dt><span>Comment</span></dt>
+        <dd>
+            <span>{{vm.jobRating.comment}}</span>
+        </dd>
+        <dt><span>Responsive</span></dt>
+        <dd>
+            <span>{{vm.jobRating.responsive}}</span>
+        </dd>
+        <dt><span>Truthful</span></dt>
+        <dd>
+            <span>{{vm.jobRating.truthful}}</span>
+        </dd>
+        <dt><span>Reliable</span></dt>
+        <dd>
+            <span>{{vm.jobRating.reliable}}</span>
+        </dd>
+        <dt><span>Professional</span></dt>
+        <dd>
+            <span>{{vm.jobRating.professional}}</span>
+        </dd>
+        <dt><span>Efficient</span></dt>
+        <dd>
+            <span>{{vm.jobRating.efficient}}</span>
+        </dd>
+        <dt><span>Effective</span></dt>
+        <dd>
+            <span>{{vm.jobRating.effective}}</span>
+        </dd>
+        <dt><span>Overall</span></dt>
+        <dd>
+            <span>{{vm.jobRating.overall}}</span>
+        </dd>
+        <dt><span>Created On</span></dt>
+        <dd>
+            <span>{{vm.jobRating.createdOn | date:'medium'}}</span>
+        </dd>
+        <dt><span>Informative</span></dt>
+        <dd>
+            <span>{{vm.jobRating.informative}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="job-rating-detail.edit({id:vm.jobRating.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

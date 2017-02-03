@@ -17,6 +17,8 @@ import com.isoftnet.jobnect.domain.enumeration.Status;
 
 import com.isoftnet.jobnect.domain.enumeration.WorkPermit;
 
+import com.isoftnet.jobnect.domain.enumeration.Industry;
+
 /**
  * A Job.
  */
@@ -94,6 +96,24 @@ public class Job implements Serializable {
 
     @Column(name = "job_url")
     private String jobURL;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "industry")
+    private Industry industry;
+
+    @NotNull
+    @Column(name = "created_by", nullable = false)
+    private Long createdBy;
+
+    @NotNull
+    @Column(name = "company_id", nullable = false)
+    private Long companyId;
+
+    @Column(name = "attachement")
+    private String attachement;
+
+    @Column(name = "logo")
+    private String logo;
 
     public Long getId() {
         return id;
@@ -324,6 +344,71 @@ public class Job implements Serializable {
         this.jobURL = jobURL;
     }
 
+    public Industry getIndustry() {
+        return industry;
+    }
+
+    public Job industry(Industry industry) {
+        this.industry = industry;
+        return this;
+    }
+
+    public void setIndustry(Industry industry) {
+        this.industry = industry;
+    }
+
+    public Long getCreatedBy() {
+        return createdBy;
+    }
+
+    public Job createdBy(Long createdBy) {
+        this.createdBy = createdBy;
+        return this;
+    }
+
+    public void setCreatedBy(Long createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public Job companyId(Long companyId) {
+        this.companyId = companyId;
+        return this;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+
+    public String getAttachement() {
+        return attachement;
+    }
+
+    public Job attachement(String attachement) {
+        this.attachement = attachement;
+        return this;
+    }
+
+    public void setAttachement(String attachement) {
+        this.attachement = attachement;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public Job logo(String logo) {
+        this.logo = logo;
+        return this;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -365,6 +450,11 @@ public class Job implements Serializable {
             ", renewable='" + renewable + "'" +
             ", salary='" + salary + "'" +
             ", jobURL='" + jobURL + "'" +
+            ", industry='" + industry + "'" +
+            ", createdBy='" + createdBy + "'" +
+            ", companyId='" + companyId + "'" +
+            ", attachement='" + attachement + "'" +
+            ", logo='" + logo + "'" +
             '}';
     }
 }

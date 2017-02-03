@@ -10,6 +10,9 @@
     <include file="classpath:config/liquibase/changelog/20170202023018_added_entity_Address.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170202023423_added_entity_Company.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170202112822_added_entity_JobStatus.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170203140124_added_entity_Reference.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170203142004_added_entity_JobRating.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170203142443_added_entity_LifeCycle.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

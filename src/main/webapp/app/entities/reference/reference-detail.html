@@ -1,0 +1,43 @@
+
+<div>
+    <h2><span>Reference</span> {{vm.reference.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>User Id</span></dt>
+        <dd>
+            <span>{{vm.reference.userId}}</span>
+        </dd>
+        <dt><span>Full Name</span></dt>
+        <dd>
+            <span>{{vm.reference.fullName}}</span>
+        </dd>
+        <dt><span>Phone Number</span></dt>
+        <dd>
+            <span>{{vm.reference.phoneNumber}}</span>
+        </dd>
+        <dt><span>Email</span></dt>
+        <dd>
+            <span>{{vm.reference.email}}</span>
+        </dd>
+        <dt><span>Reference Type</span></dt>
+        <dd>
+            <span>{{vm.reference.referenceType}}</span>
+        </dd>
+        <dt><span>Company</span></dt>
+        <dd>
+            <span>{{vm.reference.company}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="reference-detail.edit({id:vm.reference.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

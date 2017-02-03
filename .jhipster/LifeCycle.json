@@ -1,0 +1,38 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "event",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "25"
+        },
+        {
+            "fieldName": "createdOn",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "jobId",
+            "fieldType": "Long"
+        }
+    ],
+    "changelogDate": "20170203142443",
+    "dto": "no",
+    "service": "serviceImpl",
+    "entityTableName": "life_cycle",
+    "pagination": "no"
+}

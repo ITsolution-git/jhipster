@@ -200,6 +200,60 @@
                     ng-model="vm.job.jobURL"
                      />
         </div>
+        <div class="form-group">
+            <label class="control-label" for="field_industry">Industry</label>
+            <select class="form-control" name="industry" ng-model="vm.job.industry" id="field_industry">
+                <option value="HEALTH">HEALTH</option>
+                <option value="TECHNOLOGY">TECHNOLOGY</option>
+                <option value="BUSINESS">BUSINESS</option>
+                <option value="FINANCE">FINANCE</option>
+                <option value="HANDYMAN">HANDYMAN</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_createdBy">Created By</label>
+            <input type="number" class="form-control" name="createdBy" id="field_createdBy"
+                    ng-model="vm.job.createdBy"
+                    required />
+            <div ng-show="editForm.createdBy.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.createdBy.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.createdBy.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_companyId">Company Id</label>
+            <input type="number" class="form-control" name="companyId" id="field_companyId"
+                    ng-model="vm.job.companyId"
+                    required />
+            <div ng-show="editForm.companyId.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.companyId.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.companyId.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_attachement">Attachement</label>
+            <input type="text" class="form-control" name="attachement" id="field_attachement"
+                    ng-model="vm.job.attachement"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_logo">Logo</label>
+            <input type="text" class="form-control" name="logo" id="field_logo"
+                    ng-model="vm.job.logo"
+                     />
+        </div>
 
     </div>
     <div class="modal-footer">

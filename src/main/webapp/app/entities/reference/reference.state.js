@@ -9,44 +9,44 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('job', {
+        .state('reference', {
             parent: 'entity',
-            url: '/job',
+            url: '/reference',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'Jobs'
+                pageTitle: 'References'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/job/jobs.html',
-                    controller: 'JobController',
+                    templateUrl: 'app/entities/reference/references.html',
+                    controller: 'ReferenceController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
             }
         })
-        .state('job-detail', {
+        .state('reference-detail', {
             parent: 'entity',
-            url: '/job/{id}',
+            url: '/reference/{id}',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'Job'
+                pageTitle: 'Reference'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/job/job-detail.html',
-                    controller: 'JobDetailController',
+                    templateUrl: 'app/entities/reference/reference-detail.html',
+                    controller: 'ReferenceDetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
-                entity: ['$stateParams', 'Job', function($stateParams, Job) {
-                    return Job.get({id : $stateParams.id}).$promise;
+                entity: ['$stateParams', 'Reference', function($stateParams, Reference) {
+                    return Reference.get({id : $stateParams.id}).$promise;
                 }],
                 previousState: ["$state", function ($state) {
                     var currentStateData = {
-                        name: $state.current.name || 'job',
+                        name: $state.current.name || 'reference',
                         params: $state.params,
                         url: $state.href($state.current.name, $state.params)
                     };
@@ -54,22 +54,22 @@
                 }]
             }
         })
-        .state('job-detail.edit', {
-            parent: 'job-detail',
+        .state('reference-detail.edit', {
+            parent: 'reference-detail',
             url: '/detail/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/job/job-dialog.html',
-                    controller: 'JobDialogController',
+                    templateUrl: 'app/entities/reference/reference-dialog.html',
+                    controller: 'ReferenceDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Job', function(Job) {
-                            return Job.get({id : $stateParams.id}).$promise;
+                        entity: ['Reference', function(Reference) {
+                            return Reference.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
@@ -79,99 +79,83 @@
                 });
             }]
         })
-        .state('job.new', {
-            parent: 'job',
+        .state('reference.new', {
+            parent: 'reference',
             url: '/new',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/job/job-dialog.html',
-                    controller: 'JobDialogController',
+                    templateUrl: 'app/entities/reference/reference-dialog.html',
+                    controller: 'ReferenceDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
                         entity: function () {
                             return {
-                                title: null,
-                                profession: null,
-                                duration: null,
-                                term: null,
-                                referralFee: null,
-                                shortDescription: null,
-                                longDescription: null,
-                                type: null,
-                                status: null,
-                                workPermit: null,
-                                skill: null,
-                                createdOn: null,
-                                updatedOn: null,
-                                jobGroup: null,
-                                renewable: null,
-                                salary: null,
-                                jobURL: null,
-                                industry: null,
-                                createdBy: null,
-                                companyId: null,
-                                attachement: null,
-                                logo: null,
+                                userId: null,
+                                fullName: null,
+                                phoneNumber: null,
+                                email: null,
+                                referenceType: null,
+                                company: null,
                                 id: null
                             };
                         }
                     }
                 }).result.then(function() {
-                    $state.go('job', null, { reload: 'job' });
+                    $state.go('reference', null, { reload: 'reference' });
                 }, function() {
-                    $state.go('job');
+                    $state.go('reference');
                 });
             }]
         })
-        .state('job.edit', {
-            parent: 'job',
+        .state('reference.edit', {
+            parent: 'reference',
             url: '/{id}/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/job/job-dialog.html',
-                    controller: 'JobDialogController',
+                    templateUrl: 'app/entities/reference/reference-dialog.html',
+                    controller: 'ReferenceDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Job', function(Job) {
-                            return Job.get({id : $stateParams.id}).$promise;
+                        entity: ['Reference', function(Reference) {
+                            return Reference.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('job', null, { reload: 'job' });
+                    $state.go('reference', null, { reload: 'reference' });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('job.delete', {
-            parent: 'job',
+        .state('reference.delete', {
+            parent: 'reference',
             url: '/{id}/delete',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/job/job-delete-dialog.html',
-                    controller: 'JobDeleteController',
+                    templateUrl: 'app/entities/reference/reference-delete-dialog.html',
+                    controller: 'ReferenceDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['Job', function(Job) {
-                            return Job.get({id : $stateParams.id}).$promise;
+                        entity: ['Reference', function(Reference) {
+                            return Reference.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('job', null, { reload: 'job' });
+                    $state.go('reference', null, { reload: 'reference' });
                 }, function() {
                     $state.go('^');
                 });

@@ -9,44 +9,44 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('job', {
+        .state('life-cycle', {
             parent: 'entity',
-            url: '/job',
+            url: '/life-cycle',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'Jobs'
+                pageTitle: 'LifeCycles'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/job/jobs.html',
-                    controller: 'JobController',
+                    templateUrl: 'app/entities/life-cycle/life-cycles.html',
+                    controller: 'LifeCycleController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
             }
         })
-        .state('job-detail', {
+        .state('life-cycle-detail', {
             parent: 'entity',
-            url: '/job/{id}',
+            url: '/life-cycle/{id}',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'Job'
+                pageTitle: 'LifeCycle'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/job/job-detail.html',
-                    controller: 'JobDetailController',
+                    templateUrl: 'app/entities/life-cycle/life-cycle-detail.html',
+                    controller: 'LifeCycleDetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
-                entity: ['$stateParams', 'Job', function($stateParams, Job) {
-                    return Job.get({id : $stateParams.id}).$promise;
+                entity: ['$stateParams', 'LifeCycle', function($stateParams, LifeCycle) {
+                    return LifeCycle.get({id : $stateParams.id}).$promise;
                 }],
                 previousState: ["$state", function ($state) {
                     var currentStateData = {
-                        name: $state.current.name || 'job',
+                        name: $state.current.name || 'life-cycle',
                         params: $state.params,
                         url: $state.href($state.current.name, $state.params)
                     };
@@ -54,22 +54,22 @@
                 }]
             }
         })
-        .state('job-detail.edit', {
-            parent: 'job-detail',
+        .state('life-cycle-detail.edit', {
+            parent: 'life-cycle-detail',
             url: '/detail/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/job/job-dialog.html',
-                    controller: 'JobDialogController',
+                    templateUrl: 'app/entities/life-cycle/life-cycle-dialog.html',
+                    controller: 'LifeCycleDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Job', function(Job) {
-                            return Job.get({id : $stateParams.id}).$promise;
+                        entity: ['LifeCycle', function(LifeCycle) {
+                            return LifeCycle.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
@@ -79,99 +79,81 @@
                 });
             }]
         })
-        .state('job.new', {
-            parent: 'job',
+        .state('life-cycle.new', {
+            parent: 'life-cycle',
             url: '/new',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/job/job-dialog.html',
-                    controller: 'JobDialogController',
+                    templateUrl: 'app/entities/life-cycle/life-cycle-dialog.html',
+                    controller: 'LifeCycleDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
                         entity: function () {
                             return {
-                                title: null,
-                                profession: null,
-                                duration: null,
-                                term: null,
-                                referralFee: null,
-                                shortDescription: null,
-                                longDescription: null,
-                                type: null,
-                                status: null,
-                                workPermit: null,
-                                skill: null,
+                                event: null,
                                 createdOn: null,
-                                updatedOn: null,
-                                jobGroup: null,
-                                renewable: null,
-                                salary: null,
-                                jobURL: null,
-                                industry: null,
                                 createdBy: null,
-                                companyId: null,
-                                attachement: null,
-                                logo: null,
+                                jobId: null,
                                 id: null
                             };
                         }
                     }
                 }).result.then(function() {
-                    $state.go('job', null, { reload: 'job' });
+                    $state.go('life-cycle', null, { reload: 'life-cycle' });
                 }, function() {
-                    $state.go('job');
+                    $state.go('life-cycle');
                 });
             }]
         })
-        .state('job.edit', {
-            parent: 'job',
+        .state('life-cycle.edit', {
+            parent: 'life-cycle',
             url: '/{id}/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/job/job-dialog.html',
-                    controller: 'JobDialogController',
+                    templateUrl: 'app/entities/life-cycle/life-cycle-dialog.html',
+                    controller: 'LifeCycleDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Job', function(Job) {
-                            return Job.get({id : $stateParams.id}).$promise;
+                        entity: ['LifeCycle', function(LifeCycle) {
+                            return LifeCycle.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('job', null, { reload: 'job' });
+                    $state.go('life-cycle', null, { reload: 'life-cycle' });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('job.delete', {
-            parent: 'job',
+        .state('life-cycle.delete', {
+            parent: 'life-cycle',
             url: '/{id}/delete',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/job/job-delete-dialog.html',
-                    controller: 'JobDeleteController',
+                    templateUrl: 'app/entities/life-cycle/life-cycle-delete-dialog.html',
+                    controller: 'LifeCycleDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['Job', function(Job) {
-                            return Job.get({id : $stateParams.id}).$promise;
+                        entity: ['LifeCycle', function(LifeCycle) {
+                            return LifeCycle.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('job', null, { reload: 'job' });
+                    $state.go('life-cycle', null, { reload: 'life-cycle' });
                 }, function() {
                     $state.go('^');
                 });

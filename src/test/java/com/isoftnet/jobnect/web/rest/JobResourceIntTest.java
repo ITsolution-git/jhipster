@@ -38,6 +38,7 @@ import com.isoftnet.jobnect.domain.enumeration.Term;
 import com.isoftnet.jobnect.domain.enumeration.JobType;
 import com.isoftnet.jobnect.domain.enumeration.Status;
 import com.isoftnet.jobnect.domain.enumeration.WorkPermit;
+import com.isoftnet.jobnect.domain.enumeration.Industry;
 /**
  * Test class for the JobResource REST controller.
  *
@@ -98,6 +99,21 @@ public class JobResourceIntTest {
     private static final String DEFAULT_JOB_URL = "AAAAAAAAAA";
     private static final String UPDATED_JOB_URL = "BBBBBBBBBB";
 
+    private static final Industry DEFAULT_INDUSTRY = Industry.HEALTH;
+    private static final Industry UPDATED_INDUSTRY = Industry.TECHNOLOGY;
+
+    private static final Long DEFAULT_CREATED_BY = 1L;
+    private static final Long UPDATED_CREATED_BY = 2L;
+
+    private static final Long DEFAULT_COMPANY_ID = 1L;
+    private static final Long UPDATED_COMPANY_ID = 2L;
+
+    private static final String DEFAULT_ATTACHEMENT = "AAAAAAAAAA";
+    private static final String UPDATED_ATTACHEMENT = "BBBBBBBBBB";
+
+    private static final String DEFAULT_LOGO = "AAAAAAAAAA";
+    private static final String UPDATED_LOGO = "BBBBBBBBBB";
+
     @Inject
     private JobRepository jobRepository;
 
@@ -151,7 +167,12 @@ public class JobResourceIntTest {
                 .jobGroup(DEFAULT_JOB_GROUP)
                 .renewable(DEFAULT_RENEWABLE)
                 .salary(DEFAULT_SALARY)
-                .jobURL(DEFAULT_JOB_URL);
+                .jobURL(DEFAULT_JOB_URL)
+                .industry(DEFAULT_INDUSTRY)
+                .createdBy(DEFAULT_CREATED_BY)
+                .companyId(DEFAULT_COMPANY_ID)
+                .attachement(DEFAULT_ATTACHEMENT)
+                .logo(DEFAULT_LOGO);
         return job;
     }
 
@@ -193,6 +214,11 @@ public class JobResourceIntTest {
         assertThat(testJob.isRenewable()).isEqualTo(DEFAULT_RENEWABLE);
         assertThat(testJob.getSalary()).isEqualTo(DEFAULT_SALARY);
         assertThat(testJob.getJobURL()).isEqualTo(DEFAULT_JOB_URL);
+        assertThat(testJob.getIndustry()).isEqualTo(DEFAULT_INDUSTRY);
+        assertThat(testJob.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
+        assertThat(testJob.getCompanyId()).isEqualTo(DEFAULT_COMPANY_ID);
+        assertThat(testJob.getAttachement()).isEqualTo(DEFAULT_ATTACHEMENT);
+        assertThat(testJob.getLogo()).isEqualTo(DEFAULT_LOGO);
     }
 
     @Test
@@ -325,6 +351,42 @@ public class JobResourceIntTest {
 
     @Test
     @Transactional
+    public void checkCreatedByIsRequired() throws Exception {
+        int databaseSizeBeforeTest = jobRepository.findAll().size();
+        // set the field null
+        job.setCreatedBy(null);
+
+        // Create the Job, which fails.
+
+        restJobMockMvc.perform(post("/api/jobs")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(job)))
+            .andExpect(status().isBadRequest());
+
+        List<Job> jobList = jobRepository.findAll();
+        assertThat(jobList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkCompanyIdIsRequired() throws Exception {
+        int databaseSizeBeforeTest = jobRepository.findAll().size();
+        // set the field null
+        job.setCompanyId(null);
+
+        // Create the Job, which fails.
+
+        restJobMockMvc.perform(post("/api/jobs")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(job)))
+            .andExpect(status().isBadRequest());
+
+        List<Job> jobList = jobRepository.findAll();
+        assertThat(jobList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllJobs() throws Exception {
         // Initialize the database
         jobRepository.saveAndFlush(job);
@@ -350,7 +412,12 @@ public class JobResourceIntTest {
             .andExpect(jsonPath("$.[*].jobGroup").value(hasItem(DEFAULT_JOB_GROUP.toString())))
             .andExpect(jsonPath("$.[*].renewable").value(hasItem(DEFAULT_RENEWABLE.booleanValue())))
             .andExpect(jsonPath("$.[*].salary").value(hasItem(DEFAULT_SALARY.doubleValue())))
-            .andExpect(jsonPath("$.[*].jobURL").value(hasItem(DEFAULT_JOB_URL.toString())));
+            .andExpect(jsonPath("$.[*].jobURL").value(hasItem(DEFAULT_JOB_URL.toString())))
+            .andExpect(jsonPath("$.[*].industry").value(hasItem(DEFAULT_INDUSTRY.toString())))
+            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY.intValue())))
+            .andExpect(jsonPath("$.[*].companyId").value(hasItem(DEFAULT_COMPANY_ID.intValue())))
+            .andExpect(jsonPath("$.[*].attachement").value(hasItem(DEFAULT_ATTACHEMENT.toString())))
+            .andExpect(jsonPath("$.[*].logo").value(hasItem(DEFAULT_LOGO.toString())));
     }
 
     @Test
@@ -380,7 +447,12 @@ public class JobResourceIntTest {
             .andExpect(jsonPath("$.jobGroup").value(DEFAULT_JOB_GROUP.toString()))
             .andExpect(jsonPath("$.renewable").value(DEFAULT_RENEWABLE.booleanValue()))
             .andExpect(jsonPath("$.salary").value(DEFAULT_SALARY.doubleValue()))
-            .andExpect(jsonPath("$.jobURL").value(DEFAULT_JOB_URL.toString()));
+            .andExpect(jsonPath("$.jobURL").value(DEFAULT_JOB_URL.toString()))
+            .andExpect(jsonPath("$.industry").value(DEFAULT_INDUSTRY.toString()))
+            .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY.intValue()))
+            .andExpect(jsonPath("$.companyId").value(DEFAULT_COMPANY_ID.intValue()))
+            .andExpect(jsonPath("$.attachement").value(DEFAULT_ATTACHEMENT.toString()))
+            .andExpect(jsonPath("$.logo").value(DEFAULT_LOGO.toString()));
     }
 
     @Test
@@ -418,7 +490,12 @@ public class JobResourceIntTest {
                 .jobGroup(UPDATED_JOB_GROUP)
                 .renewable(UPDATED_RENEWABLE)
                 .salary(UPDATED_SALARY)
-                .jobURL(UPDATED_JOB_URL);
+                .jobURL(UPDATED_JOB_URL)
+                .industry(UPDATED_INDUSTRY)
+                .createdBy(UPDATED_CREATED_BY)
+                .companyId(UPDATED_COMPANY_ID)
+                .attachement(UPDATED_ATTACHEMENT)
+                .logo(UPDATED_LOGO);
 
         restJobMockMvc.perform(put("/api/jobs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -446,6 +523,11 @@ public class JobResourceIntTest {
         assertThat(testJob.isRenewable()).isEqualTo(UPDATED_RENEWABLE);
         assertThat(testJob.getSalary()).isEqualTo(UPDATED_SALARY);
         assertThat(testJob.getJobURL()).isEqualTo(UPDATED_JOB_URL);
+        assertThat(testJob.getIndustry()).isEqualTo(UPDATED_INDUSTRY);
+        assertThat(testJob.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
+        assertThat(testJob.getCompanyId()).isEqualTo(UPDATED_COMPANY_ID);
+        assertThat(testJob.getAttachement()).isEqualTo(UPDATED_ATTACHEMENT);
+        assertThat(testJob.getLogo()).isEqualTo(UPDATED_LOGO);
     }
 
     @Test

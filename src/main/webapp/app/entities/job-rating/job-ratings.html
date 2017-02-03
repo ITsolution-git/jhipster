@@ -1,0 +1,78 @@
+<div>
+    <h2>Job Ratings</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="job-rating.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Job Rating
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th><span>User Id</span></th>
+                    <th><span>Job Id</span></th>
+                    <th><span>Comment</span></th>
+                    <th><span>Responsive</span></th>
+                    <th><span>Truthful</span></th>
+                    <th><span>Reliable</span></th>
+                    <th><span>Professional</span></th>
+                    <th><span>Efficient</span></th>
+                    <th><span>Effective</span></th>
+                    <th><span>Overall</span></th>
+                    <th><span>Created On</span></th>
+                    <th><span>Informative</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="jobRating in vm.jobRatings track by jobRating.id">
+                    <td><a ui-sref="job-rating-detail({id:jobRating.id})">{{jobRating.id}}</a></td>
+                    <td>{{jobRating.userId}}</td>
+                    <td>{{jobRating.jobId}}</td>
+                    <td>{{jobRating.comment}}</td>
+                    <td>{{jobRating.responsive}}</td>
+                    <td>{{jobRating.truthful}}</td>
+                    <td>{{jobRating.reliable}}</td>
+                    <td>{{jobRating.professional}}</td>
+                    <td>{{jobRating.efficient}}</td>
+                    <td>{{jobRating.effective}}</td>
+                    <td>{{jobRating.overall}}</td>
+                    <td>{{jobRating.createdOn | date:'medium'}}</td>
+                    <td>{{jobRating.informative}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="job-rating-detail({id:jobRating.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="job-rating.edit({id:jobRating.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="job-rating.delete({id:jobRating.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

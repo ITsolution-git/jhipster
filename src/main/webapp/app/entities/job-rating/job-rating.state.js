@@ -9,44 +9,44 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('job', {
+        .state('job-rating', {
             parent: 'entity',
-            url: '/job',
+            url: '/job-rating',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'Jobs'
+                pageTitle: 'JobRatings'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/job/jobs.html',
-                    controller: 'JobController',
+                    templateUrl: 'app/entities/job-rating/job-ratings.html',
+                    controller: 'JobRatingController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
             }
         })
-        .state('job-detail', {
+        .state('job-rating-detail', {
             parent: 'entity',
-            url: '/job/{id}',
+            url: '/job-rating/{id}',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'Job'
+                pageTitle: 'JobRating'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/job/job-detail.html',
-                    controller: 'JobDetailController',
+                    templateUrl: 'app/entities/job-rating/job-rating-detail.html',
+                    controller: 'JobRatingDetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
-                entity: ['$stateParams', 'Job', function($stateParams, Job) {
-                    return Job.get({id : $stateParams.id}).$promise;
+                entity: ['$stateParams', 'JobRating', function($stateParams, JobRating) {
+                    return JobRating.get({id : $stateParams.id}).$promise;
                 }],
                 previousState: ["$state", function ($state) {
                     var currentStateData = {
-                        name: $state.current.name || 'job',
+                        name: $state.current.name || 'job-rating',
                         params: $state.params,
                         url: $state.href($state.current.name, $state.params)
                     };
@@ -54,22 +54,22 @@
                 }]
             }
         })
-        .state('job-detail.edit', {
-            parent: 'job-detail',
+        .state('job-rating-detail.edit', {
+            parent: 'job-rating-detail',
             url: '/detail/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/job/job-dialog.html',
-                    controller: 'JobDialogController',
+                    templateUrl: 'app/entities/job-rating/job-rating-dialog.html',
+                    controller: 'JobRatingDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Job', function(Job) {
-                            return Job.get({id : $stateParams.id}).$promise;
+                        entity: ['JobRating', function(JobRating) {
+                            return JobRating.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
@@ -79,99 +79,89 @@
                 });
             }]
         })
-        .state('job.new', {
-            parent: 'job',
+        .state('job-rating.new', {
+            parent: 'job-rating',
             url: '/new',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/job/job-dialog.html',
-                    controller: 'JobDialogController',
+                    templateUrl: 'app/entities/job-rating/job-rating-dialog.html',
+                    controller: 'JobRatingDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
                         entity: function () {
                             return {
-                                title: null,
-                                profession: null,
-                                duration: null,
-                                term: null,
-                                referralFee: null,
-                                shortDescription: null,
-                                longDescription: null,
-                                type: null,
-                                status: null,
-                                workPermit: null,
-                                skill: null,
+                                userId: null,
+                                jobId: null,
+                                comment: null,
+                                responsive: null,
+                                truthful: null,
+                                reliable: null,
+                                professional: null,
+                                efficient: null,
+                                effective: null,
+                                overall: null,
                                 createdOn: null,
-                                updatedOn: null,
-                                jobGroup: null,
-                                renewable: null,
-                                salary: null,
-                                jobURL: null,
-                                industry: null,
-                                createdBy: null,
-                                companyId: null,
-                                attachement: null,
-                                logo: null,
+                                informative: null,
                                 id: null
                             };
                         }
                     }
                 }).result.then(function() {
-                    $state.go('job', null, { reload: 'job' });
+                    $state.go('job-rating', null, { reload: 'job-rating' });
                 }, function() {
-                    $state.go('job');
+                    $state.go('job-rating');
                 });
             }]
         })
-        .state('job.edit', {
-            parent: 'job',
+        .state('job-rating.edit', {
+            parent: 'job-rating',
             url: '/{id}/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/job/job-dialog.html',
-                    controller: 'JobDialogController',
+                    templateUrl: 'app/entities/job-rating/job-rating-dialog.html',
+                    controller: 'JobRatingDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Job', function(Job) {
-                            return Job.get({id : $stateParams.id}).$promise;
+                        entity: ['JobRating', function(JobRating) {
+                            return JobRating.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('job', null, { reload: 'job' });
+                    $state.go('job-rating', null, { reload: 'job-rating' });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('job.delete', {
-            parent: 'job',
+        .state('job-rating.delete', {
+            parent: 'job-rating',
             url: '/{id}/delete',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/job/job-delete-dialog.html',
-                    controller: 'JobDeleteController',
+                    templateUrl: 'app/entities/job-rating/job-rating-delete-dialog.html',
+                    controller: 'JobRatingDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['Job', function(Job) {
-                            return Job.get({id : $stateParams.id}).$promise;
+                        entity: ['JobRating', function(JobRating) {
+                            return JobRating.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('job', null, { reload: 'job' });
+                    $state.go('job-rating', null, { reload: 'job-rating' });
                 }, function() {
                     $state.go('^');
                 });

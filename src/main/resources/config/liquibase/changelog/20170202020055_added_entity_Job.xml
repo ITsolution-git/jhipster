@@ -92,6 +92,26 @@
                 <constraints nullable="true" />
             </column>
             
+            <column name="industry" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="created_by" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            
+            <column name="company_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            
+            <column name="attachement" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="logo" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="job" columnName="created_on" columnDataType="datetime"/>

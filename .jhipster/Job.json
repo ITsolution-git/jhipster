@@ -97,6 +97,33 @@
         {
             "fieldName": "jobURL",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "industry",
+            "fieldType": "Industry",
+            "fieldValues": "HEALTH,TECHNOLOGY,BUSINESS,FINANCE,HANDYMAN"
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "companyId",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "attachement",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "logo",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20170202020055",
