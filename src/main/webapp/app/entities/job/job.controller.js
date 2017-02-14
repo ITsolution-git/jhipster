@@ -88,7 +88,7 @@
             // Add event listener for opening and closing details
             $('#job-table tbody').on('click', 'td.details-control', function () {
                 var tr = $(this).closest('tr');
-                var row = table.row( tr );
+                var row = vm.table.row( tr );
          
                 if ( row.child.isShown() ) {
                     // This row is already open - close it
@@ -105,13 +105,46 @@
             }, 100);
         }, 1000);
         
-
+        vm.selectIDs = [];
         vm.jobs = [];
 
         loadAll();
+        $scope.addCheck = function(id){
+            if( vm.selectIDs.indexOf(id) == -1 )
+                vm.selectIDs.push(id);
+            else
+                vm.selectIDs.splice(vm.selectIDs.indexOf(id), 1);
+        }
+
         $scope.addStatus = function(){
-            var count = vm.table.rows( { selected: true } )         
-            console.log(count);
+            $state.go("job.addstatus", {
+                selectIDs : vm.selectIDs
+            });
+
+            // var arr = $("#job-table tr td:nth-child(1) input:checked");
+            // for (var i = 0; i < arr.length; i++) {
+            //     console.log($(arr[i]).parent().parent().children("td:nth-child(3)").val());
+            // }
+        }
+        $scope.closeJobs = function(){
+            $state.go("job.closejobs", {
+                selectIDs : vm.selectIDs
+            });
+
+            // var arr = $("#job-table tr td:nth-child(1) input:checked");
+            // for (var i = 0; i < arr.length; i++) {
+            //     console.log($(arr[i]).parent().parent().children("td:nth-child(3)").val());
+            // }
+        }
+        $scope.deleteJobs = function(){
+            $state.go("job.deletejobs", {
+                selectIDs : vm.selectIDs
+            });
+
+            // var arr = $("#job-table tr td:nth-child(1) input:checked");
+            // for (var i = 0; i < arr.length; i++) {
+            //     console.log($(arr[i]).parent().parent().children("td:nth-child(3)").val());
+            // }
         }
         function loadAll() {
             Job.query(function(result) {

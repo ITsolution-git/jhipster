@@ -181,7 +181,10 @@
             parent: 'job',
             url: '/addstatus',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_USER'],
+            },
+            params: {
+                selectIDs: [],
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -190,9 +193,54 @@
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['Job', function(Job) {
-                            return Job.get({id : $stateParams.id}).$promise;
-                        }]
+                    }
+                }).result.then(function() {
+                    $state.go('job', null, { reload: 'job' });
+                }, function() {
+                    $state.go('^');
+                });
+            }]
+        })
+        .state('job.closejobs', {
+            parent: 'job',
+            url: '/closejobs',
+            data: {
+                authorities: ['ROLE_USER'],
+            },
+            params: {
+                selectIDs: [],
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/entities/job/job-closejob-dialog.html',
+                    controller: 'JobCloseJobsController',
+                    controllerAs: 'vm',
+                    size: 'md',
+                    resolve: {
+                    }
+                }).result.then(function() {
+                    $state.go('job', null, { reload: 'job' });
+                }, function() {
+                    $state.go('^');
+                });
+            }]
+        })
+        .state('job.deletejobs', {
+            parent: 'job',
+            url: '/deletejobs',
+            data: {
+                authorities: ['ROLE_USER'],
+            },
+            params: {
+                selectIDs: [],
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/entities/job/job-deletejob-dialog.html',
+                    controller: 'DeleteJobsController',
+                    controllerAs: 'vm',
+                    size: 'md',
+                    resolve: {
                     }
                 }).result.then(function() {
                     $state.go('job', null, { reload: 'job' });

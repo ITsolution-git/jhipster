@@ -3,22 +3,22 @@
 
     angular
         .module('isoftnetApp')
-        .controller('DeleteJobsController',DeleteJobsController);
+        .controller('JobDeleteJobsController',JobDeleteJobsController);
 
-    DeleteJobsController.$inject = ['$uibModalInstance','Job' ,'$stateParams'];
+    JobDeleteJobsController.$inject = ['$uibModalInstance', 'Job'];
 
-    function DeleteJobsController($uibModalInstance, Job, $stateParams) {
+    function JobDeleteJobsController($uibModalInstance, Job) {
         var vm = this;
 
+            
         vm.clear = clear;
-        vm.deleteJobs = deleteJobs;
+        vm.confirmDelete = confirmDelete;
 
-        console.log($stateParams.selectIDs);
         function clear () {
             $uibModalInstance.dismiss('cancel');
         }
 
-        function deleteJobs () {
+        function confirmDelete (id) {
             Job.delete({id: id},
                 function () {
                     $uibModalInstance.close(true);

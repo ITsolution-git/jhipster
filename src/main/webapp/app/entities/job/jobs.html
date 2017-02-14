@@ -19,10 +19,8 @@
                     </button>
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
                         <li role="menuitem"><a ng-click="addStatus()">Add Status</a></li>
-                        <li role="menuitem"><a href="#">Another action</a></li>
-                        <li role="menuitem"><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li role="menuitem"><a href="#">Separated link</a></li>
+                        <li role="menuitem"><a ng-click="deleteJobs()">Delete Jobs</a></li>
+                        <li role="menuitem"><a ng-click="closeJobs()">Close Jobs</a></li>
                     </ul>
                 </div>
             </div>
@@ -63,7 +61,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="job in vm.jobs track by job.id">
-                    <td><input type="checkbox" /></td>
+                    <td><input type="checkbox" ng-click="addCheck(job.id)"></td>
                     <td class="details-control" ng-click="rowExpanded[row.name]=!rowExpanded[job.id]"></td>
                     <td><a ui-sref="job-detail({id:job.id})">{{job.id}}</a></td>
                     <td>{{job.title}}</td>
@@ -130,7 +128,7 @@
     <button ng-click="authenticate('bitbucket')">Sign in with Bitbucket</button>
     <button ng-click="authenticate('spotify')">Sign in with Spotify</button>
 </div>-->
-<div class="text-center">
+<!-- <div class="text-center">
     <a ng-click="signoutSocialMedia()" class="btn btn-primary">
         <span class="fa fa-sign-out"></span>Sign out
     </a>
@@ -149,5 +147,5 @@
     <a class="btn btn-social btn-yahoo">
         <span class="fa fa-yahoo"></span> Yahoo
     </a>
-</div>
+</div> -->
 </div>

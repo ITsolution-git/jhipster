@@ -5,15 +5,15 @@
         .module('isoftnetApp')
         .controller('JobAddStatusController',JobAddStatusController);
 
-    JobAddStatusController.$inject = ['$uibModalInstance', 'entity', 'Job'];
+    JobAddStatusController.$inject = ['$uibModalInstance', 'Job', '$stateParams'];
 
-    function JobAddStatusController($uibModalInstance, entity, Job) {
+    function JobAddStatusController($uibModalInstance, Job, $stateParams) {
         var vm = this;
 
-        vm.job = entity;
+            
         vm.clear = clear;
         vm.confirmDelete = confirmDelete;
-
+        console.log($stateParams.selectIDs);
         function clear () {
             $uibModalInstance.dismiss('cancel');
         }
