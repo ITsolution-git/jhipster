@@ -176,6 +176,30 @@
                     $state.go('^');
                 });
             }]
+        })
+        .state('job.addstatus', {
+            parent: 'job',
+            url: '/addstatus',
+            data: {
+                authorities: ['ROLE_USER']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/entities/job/job-addstatus-dialog.html',
+                    controller: 'JobAddStatusController',
+                    controllerAs: 'vm',
+                    size: 'md',
+                    resolve: {
+                        entity: ['Job', function(Job) {
+                            return Job.get({id : $stateParams.id}).$promise;
+                        }]
+                    }
+                }).result.then(function() {
+                    $state.go('job', null, { reload: 'job' });
+                }, function() {
+                    $state.go('^');
+                });
+            }]
         });
     }
 

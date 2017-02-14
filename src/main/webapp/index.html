@@ -14,6 +14,9 @@
     <!-- endinject -->
     <!-- endbuild -->
     <!-- build:css content/css/main.css -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.css">
     <link rel="stylesheet" href="content/css/main.css">
     <!-- endbuild -->
 </head>
@@ -46,6 +49,13 @@
     <!-- build:js app/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.css">
+  
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.js"></script>
+
+
     <script src="bower_components/json3/lib/json3.js"></script>
     <script src="bower_components/messageformat/messageformat.js"></script>
     <script src="bower_components/angular/angular.js"></script>
@@ -61,6 +71,8 @@
     <script src="bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
     <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
     <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+   <!--  <script src="bower_components/satellizer/dist/satellizer.js"></script> -->
+    <script src="app/plugins/social-login.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
 
@@ -117,6 +129,7 @@
     <script src="app/entities/job-application/job-application.controller.js"></script>
     <script src="app/entities/job/job-dialog.controller.js"></script>
     <script src="app/entities/job/job-detail.controller.js"></script>
+    <script src="app/entities/job/job-addstatus-dialog.controller.js"></script>
     <script src="app/entities/job/job-delete-dialog.controller.js"></script>
     <script src="app/entities/job/job.state.js"></script>
     <script src="app/entities/job/job.service.js"></script>

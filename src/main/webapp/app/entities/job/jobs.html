@@ -3,21 +3,38 @@
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-4 no-padding-left">
+            <div class="col-xs-12 no-padding-left">
                 <button class="btn btn-primary" ui-sref="job.new" >
-                    <span class="glyphicon glyphicon-plus"></span>
-                    <span >
-                        Create new Job
-                    </span>
+                <span class="glyphicon glyphicon-plus"></span>
+                <span >
+                    Create new Job
+                </span>
                 </button>
+                <!-- Single button -->
+                <div class="btn-group pull-right" uib-dropdown>
+                    <button id="split-button" type="button" class="btn btn-primary">Action</button>
+                    <button type="button" class="btn btn-primary" uib-dropdown-toggle>
+                    <span class="caret"></span>
+                    <span class="sr-only">Split button!</span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                        <li role="menuitem"><a ng-click="addStatus()">Add Status</a></li>
+                        <li role="menuitem"><a href="#">Another action</a></li>
+                        <li role="menuitem"><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li role="menuitem"><a href="#">Separated link</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
     <br/>
-    <div class="table-responsive">
-        <table class="jh-table table table-striped">
+    <div class="table-responsive" >
+        <table class="jh-table table table-striped" id="job-table">
             <thead>
                 <tr>
+                    <th></th>
+                    <th data-orderable="false"></th>
                     <th><span>ID</span></th>
                     <th><span>Title</span></th>
                     <th><span>Profession</span></th>
@@ -46,6 +63,8 @@
             </thead>
             <tbody>
                 <tr ng-repeat="job in vm.jobs track by job.id">
+                    <td><input type="checkbox" /></td>
+                    <td class="details-control" ng-click="rowExpanded[row.name]=!rowExpanded[job.id]"></td>
                     <td><a ui-sref="job-detail({id:job.id})">{{job.id}}</a></td>
                     <td>{{job.title}}</td>
                     <td>{{job.profession}}</td>
@@ -72,22 +91,22 @@
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
-                                    ui-sref="job-detail({id:job.id})"
-                                    class="btn btn-info btn-sm">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                <span class="hidden-xs hidden-sm"></span>
+                            ui-sref="job-detail({id:job.id})"
+                            class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            <span class="hidden-xs hidden-sm"></span>
                             </button>
                             <button type="submit"
-                                    ui-sref="job.edit({id:job.id})"
-                                    class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                                <span class="hidden-xs hidden-sm"></span>
+                            ui-sref="job.edit({id:job.id})"
+                            class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <span class="hidden-xs hidden-sm"></span>
                             </button>
                             <button type="submit"
-                                    ui-sref="job.delete({id:job.id})"
-                                    class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-remove-circle"></span>
-                                <span class="hidden-xs hidden-sm"></span>
+                            ui-sref="job.delete({id:job.id})"
+                            class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>
+                            <span class="hidden-xs hidden-sm"></span>
                             </button>
                         </div>
                     </td>
@@ -95,4 +114,40 @@
             </tbody>
         </table>
     </div>
+    <!-- <div class="text-center">
+        <button type="button" class="btn" ng-click="signoutSatellizer()">sign out satellizer</button>
+        <button ng-click="authenticate('linkedin')">Sign in with LinkedIn</button>
+        <button ng-click="authenticate('google')">Sign in with Google</button>
+    </div>
+    <button ng-click="authenticate('github')">Sign in with GitHub</button>
+    <button ng-click="authenticate('facebook')">Sign in with Facebook</button>
+    <button ng-click="authenticate('instagram')">Sign in with Instagram</button>
+    <button ng-click="authenticate('twitter')">Sign in with Twitter</button>
+    <button ng-click="authenticate('foursquare')">Sign in with Foursquare</button>
+    <button ng-click="authenticate('yahoo')">Sign in with Yahoo</button>
+    <button ng-click="authenticate('live')">Sign in with Windows Live</button>
+    <button ng-click="authenticate('twitch')">Sign in with Twitch</button>
+    <button ng-click="authenticate('bitbucket')">Sign in with Bitbucket</button>
+    <button ng-click="authenticate('spotify')">Sign in with Spotify</button>
+</div>-->
+<div class="text-center">
+    <a ng-click="signoutSocialMedia()" class="btn btn-primary">
+        <span class="fa fa-sign-out"></span>Sign out
+    </a>
+    <a g-login class="btn btn-social btn-google">
+        <span class="fa fa-google"></span> Google
+    </a>
+    <a linked-in class="btn btn-social btn-linkedin">
+        <span class="fa fa-linkedin"></span> LinkedIn
+    </a>
+    <a fb-login class="btn btn-social btn-facebook">
+        <span class="fa fa-facebook"></span> FaceBook
+    </a>
+    <a wlive-login class="btn btn-social btn-microsoft">
+        <span class="fa fa-windows"></span> Microsoft
+    </a>
+    <a class="btn btn-social btn-yahoo">
+        <span class="fa fa-yahoo"></span> Yahoo
+    </a>
+</div>
 </div>
