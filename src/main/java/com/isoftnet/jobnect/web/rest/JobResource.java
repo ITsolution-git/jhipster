@@ -116,5 +116,14 @@ public class JobResource {
         jobService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("job", id.toString())).build();
     }
+    
+    @DeleteMapping("/jobs")
+    @Timed
+    public ResponseEntity<Void> deleteJobs(@Valid @RequestBody List<Long> jobIds) {
+        log.debug("REST request to delete Jobs : {}", jobIds);
+        
+        for(Long jobId : jobIds) jobService.delete(jobId);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("job", jobIds.toString())).build();
+    }
 
 }
