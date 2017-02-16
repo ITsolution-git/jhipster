@@ -125,5 +125,14 @@ public class JobResource {
         for(Long jobId : jobIds) jobService.delete(jobId);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("job", jobIds.toString())).build();
     }
+    
+    @PostMapping("/closeJobs")
+    @Timed
+    public ResponseEntity<Void> closeJobs(@Valid @RequestBody List<Long> jobIds) {
+        log.debug("REST request to close Jobs : {}", jobIds);
+        
+        for(Long jobId : jobIds) jobService.delete(jobId);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("job", jobIds.toString())).build();
+    }
 
 }
