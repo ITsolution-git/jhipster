@@ -189,7 +189,7 @@
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
                     templateUrl: 'app/entities/job/job-addstatus-dialog.html',
-                    controller: 'JobAddStatusController',
+                    controller: 'cccc',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
