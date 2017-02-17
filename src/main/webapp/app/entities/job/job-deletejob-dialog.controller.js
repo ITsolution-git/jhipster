@@ -1,3 +1,4 @@
+
 (function() {
     'use strict';
 
@@ -5,24 +6,28 @@
         .module('isoftnetApp')
         .controller('JobDeleteJobsController',JobDeleteJobsController);
 
-    JobDeleteJobsController.$inject = ['$uibModalInstance', 'Job'];
+    JobDeleteJobsController.$inject = ['$uibModalInstance', 'Job', '$stateParams', '$http', '$state'];
 
-    function JobDeleteJobsController($uibModalInstance, Job) {
+    function JobDeleteJobsController($uibModalInstance, Job, $stateParams, $http, $state) {
         var vm = this;
 
             
         vm.clear = clear;
-        vm.confirmDelete = confirmDelete;
+        vm.deleteJobs = deleteJobs;
 
         function clear () {
             $uibModalInstance.dismiss('cancel');
-        }
-
-        function confirmDelete (id) {
-            Job.delete({id: id},
-                function () {
-                    $uibModalInstance.close(true);
-                });
+        }   
+        function deleteJobs () {
+            // $http.delete('api/jobs', 
+            //     {data:$stateParams.selectIDs})
+            // .then(function(response){
+            //     $uibModalInstance.close(true);
+            // })
+            $http.post('api/closeJobs', $stateParams.selectIDs)
+            .then(function(response){
+                $uibModalInstance.close(true);
+            })
         }
     }
 })();

@@ -237,7 +237,7 @@
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
                     templateUrl: 'app/entities/job/job-deletejob-dialog.html',
-                    controller: 'DeleteJobsController',
+                    controller: 'JobDeleteJobsController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
