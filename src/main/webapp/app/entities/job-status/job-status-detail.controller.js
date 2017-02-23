@@ -11,7 +11,8 @@
         var vm = this;
 
         vm.jobStatus = entity;
-        vm.previousState = previousState.name;
+        vm.previousState = previousState;
+        vm.openJobId = $stateParams.openJobId;
 
         var unsubscribe = $rootScope.$on('isoftnetApp:jobStatusUpdate', function(event, result) {
             vm.jobStatus = result;

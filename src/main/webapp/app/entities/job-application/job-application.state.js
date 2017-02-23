@@ -16,6 +16,9 @@
                 authorities: ['ROLE_USER'],
                 pageTitle: 'JobApplications'
             },
+            params:{
+                openJobId: 9
+            },
             views: {
                 'content@': {
                     templateUrl: 'app/entities/job-application/job-applications.html',
@@ -95,7 +98,7 @@
                     resolve: {
                         entity: function () {
                             return {
-                                jobId: null,
+                                jobId: $stateParams.openJobId,
                                 coverNote: null,
                                 resumeName: null,
                                 status: null,

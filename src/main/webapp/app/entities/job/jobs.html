@@ -1,3 +1,82 @@
+<script type="text/ng-template" id="job-datatable-detail.directive.html">
+    <h4>{{job.title}}</h4>
+    <span style="float:left;margin-right: 100px">
+        {{job.createdOn | date:'medium'}}
+    </span>
+    <span style="float:left;margin-right: 100px">
+        postedBy:{{username}}
+    </span>
+    <span style="float:right">
+        <a ui-sref="job-application({openJobId:job.id})">Applicants</a>|
+        <a>Events</a>|
+        <a>Interviews</a>|
+        <a>Rating</a>|
+        <a ui-sref="job-status({openJobId:job.id})">Status</a>
+    </span>
+    <div style="clear:both">
+
+    </div>
+    <p>
+        {{job.shortDescription}}
+    </p>
+    <table class="table-borders">
+        <thead>
+            <tr>
+                <th>Job #</th>
+                <th>Job Type</th>
+                <th>Profession</th>
+                <th>Company</th>
+                <th>Work Permit</th>
+                <th>Status</th>  
+                <th>Referal Fee</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{job.id}}</td>
+                <td>{{job.type}}</td>
+                <td>{{job.profession}}</td>
+                <td>{{job.companyId}}</td>
+                <td>{{job.workPermit}}</td>
+                <td>{{job.status}}</td>
+                <td>{{job.referralFee}}</td>
+                <td>{{job.salary}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- <button type="submit"
+    ui-sref="job-detail({id:job.id})"
+    class="btn btn-info btn-sm">
+    <span class="glyphicon glyphicon-eye-open"></span>
+    <span class="hidden-xs hidden-sm"></span>
+    </button> 
+    <button type="submit"
+    ui-sref="job.edit({id:job.id})"
+    class="btn btn-primary btn-sm">
+    <span class="glyphicon glyphicon-pencil"></span>
+    <span class="hidden-xs hidden-sm"></span>
+    </button>
+    <button type="submit"
+    ui-sref="job.delete({id:job.id})"
+    class="btn btn-danger btn-sm">
+    <span class="glyphicon glyphicon-remove-circle"></span>
+    <span class="hidden-xs hidden-sm"></span>
+    </button>-->
+    <button type="submit"
+    ui-sref="job.edit({id:job.id})"
+    class="btn btn-primary btn-sm">Edit
+    </button>
+
+    <button type="submit"
+    ui-sref="job.delete({id:job.id})"
+    class="btn btn-warning btn-sm">Close
+    </button>
+    <button type="submit"
+    ui-sref="job.delete({id:job.id})"
+    class="btn btn-danger btn-sm">Delete
+    </button>
+</script>
 <div>
     <h2>Jobs</h2>
     <jhi-alert></jhi-alert>
@@ -39,28 +118,28 @@
                     <th><span>Duration</span></th>
                     <th><span>Term</span></th>
                     <th><span>Referral Fee</span></th>
-                    <th><span>Short Description</span></th>
-                    <th><span>Long Description</span></th>
+                    <!-- <th><span>Short Description</span></th>
+                    <th><span>Long Description</span></th> -->
                     <th><span>Type</span></th>
                     <th><span>Status</span></th>
                     <th><span>Work Permit</span></th>
                     <th><span>Skill</span></th>
-                    <th><span>Created On</span></th>
-                    <th><span>Updated On</span></th>
+                    <!-- <th><span>Created On</span></th>
+                    <th><span>Updated On</span></th> -->
                     <th><span>Job Group</span></th>
                     <th><span>Renewable</span></th>
                     <th><span>Salary</span></th>
-                    <th><span>Job URL</span></th>
-                    <th><span>Industry</span></th>
-                    <th><span>Created By</span></th>
+                    <!-- <th><span>Job URL</span></th>
+                    <th><span>Industry</span></th> -->
+                    <!-- <th><span>Created By</span></th> -->
                     <th><span>Company Id</span></th>
-                    <th><span>Attachement</span></th>
-                    <th><span>Logo</span></th>
+                    <!-- <th><span>Attachement</span></th>
+                    <th><span>Logo</span></th> -->
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="job in vm.jobs track by job.id">
+                <tr ng-repeat="job in vm.jobs track by job.id" id="tr_{{job.id}}">
                     <td><input type="checkbox" ng-click="addCheck(job.id)"></td>
                     <td class="details-control" ng-click="rowExpanded[row.name]=!rowExpanded[job.id]"></td>
                     <td><a ui-sref="job-detail({id:job.id})">{{job.id}}</a></td>
@@ -69,23 +148,23 @@
                     <td>{{job.duration}}</td>
                     <td>{{job.term}}</td>
                     <td>{{job.referralFee}}</td>
-                    <td>{{job.shortDescription}}</td>
-                    <td>{{job.longDescription}}</td>
+                    <!-- <td>{{job.shortDescription}}</td>
+                    <td>{{job.longDescription}}</td> -->
                     <td>{{job.type}}</td>
                     <td>{{job.status}}</td>
                     <td>{{job.workPermit}}</td>
                     <td>{{job.skill}}</td>
-                    <td>{{job.createdOn | date:'medium'}}</td>
-                    <td>{{job.updatedOn | date:'medium'}}</td>
+                    <!-- <td>{{job.createdOn | date:'medium'}}</td>
+                    <td>{{job.updatedOn | date:'medium'}}</td> -->
                     <td>{{job.jobGroup}}</td>
                     <td>{{job.renewable}}</td>
                     <td>{{job.salary}}</td>
-                    <td>{{job.jobURL}}</td>
-                    <td>{{job.industry}}</td>
-                    <td>{{job.createdBy}}</td>
+                    <!-- <td>{{job.jobURL}}</td>
+                    <td>{{job.industry}}</td> -->
+                    <!-- <td>{{job.createdBy}}</td> -->
                     <td>{{job.companyId}}</td>
-                    <td>{{job.attachement}}</td>
-                    <td>{{job.logo}}</td>
+                    <!-- <td>{{job.attachement}}</td>
+                    <td>{{job.logo}}</td> -->
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
@@ -109,6 +188,12 @@
                         </div>
                     </td>
                 </tr>
+                <!-- <tr ng-repeat-end>
+                    <td colspan="26">
+                        <job-detail ng-model="job"></job-detail>
+                    </td>
+
+                </tr> -->
             </tbody>
         </table>
     </div>

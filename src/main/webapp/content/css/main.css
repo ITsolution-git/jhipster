@@ -340,6 +340,13 @@ ui bootstrap tweaks
 #job-table tr.shown td.details-control {
     background: url('../images/details_close.png') no-repeat center center;
 }
+#job-application-table td.details-control {
+    background: url('../images/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+#job-application-table tr.shown td.details-control {
+    background: url('../images/details_close.png') no-repeat center center;
+}
 #job-table td {
     vertical-align: middle;
     font-size: 12px;
@@ -350,4 +357,10 @@ ui bootstrap tweaks
 }
 #job-table {
     width: 100% !important;
+}
+#job-table tbody tr{
+    background-color: #f5f5f5;
+}
+#job-table tbody tr.active td{
+    background-color: #ffffff !important;
 }

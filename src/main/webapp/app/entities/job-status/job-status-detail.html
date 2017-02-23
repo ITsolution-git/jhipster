@@ -23,12 +23,12 @@
     </dl>
 
     <button type="submit"
-            ui-sref="{{ vm.previousState }}"
+            ui-sref="{{vm.previousState.name}}({{ vm.previousState.params }})"
             class="btn btn-info">
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
     </button>
 
-    <button type="button" ui-sref="job-status-detail.edit({id:vm.jobStatus.id})" class="btn btn-primary">
+    <button type="button" ui-sref="job-status-detail.edit({id:vm.jobStatus.id, openJobId:vm.openJobId})" class="btn btn-primary">
         <span class="glyphicon glyphicon-pencil"></span>
         <span class="hidden-xs hidden-sm"> Edit</span>
     </button>

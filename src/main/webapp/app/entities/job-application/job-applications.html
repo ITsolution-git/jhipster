@@ -1,3 +1,12 @@
+
+<script type="text/ng-template" id="job-application-detail.directive.html">
+    <p>
+        {{jobApplication.coverNote}}
+    </p>
+    <p>
+        {{jobApplication.resumeName}}
+    </p>
+</script>
 <div>
     <h2>Job Applications</h2>
     <jhi-alert></jhi-alert>
@@ -15,15 +24,16 @@
     </div>
     <br/>
     <div class="table-responsive">
-        <table class="jh-table table table-striped">
+        <table class="jh-table table table-striped"  id="job-application-table">
             <thead>
                 <tr>
-                    <th><span>ID</span></th>
-                    <th><span>Job Id</span></th>
+                   <!--  <th><span>ID</span></th>
+                    <th><span>Job Id</span></th> 
                     <th><span>Cover Note</span></th>
-                    <th><span>Resume Name</span></th>
+                    <th><span>Resume Name</span></th>-->
+                    <th></th>
                     <th><span>Status</span></th>
-                    <th><span>User Id</span></th>
+                    <!-- <th><span>User Id</span></th> -->
                     <th><span>Referred By</span></th>
                     <th><span>Created On</span></th>
                     <th><span>Updated On</span></th>
@@ -31,13 +41,15 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="jobApplication in vm.jobApplications track by jobApplication.id">
-                    <td><a ui-sref="job-application-detail({id:jobApplication.id})">{{jobApplication.id}}</a></td>
+                <tr ng-repeat="jobApplication in vm.jobApplications | filter:{jobId:vm.openJobId} track by jobApplication.id" id="tr_{{jobApplication.id}}">
+
+                    <!-- <td><a ui-sref="job-application-detail({id:jobApplication.id})">{{jobApplication.id}}</a></td>
                     <td>{{jobApplication.jobId}}</td>
                     <td>{{jobApplication.coverNote}}</td>
-                    <td>{{jobApplication.resumeName}}</td>
+                    <td>{{jobApplication.resumeName}}</td> -->
+                    <td class="details-control" ng-click="rowExpanded[row.name]=!rowExpanded[job.id]"></td>
                     <td>{{jobApplication.status}}</td>
-                    <td>{{jobApplication.userId}}</td>
+                    <!-- <td>{{jobApplication.userId}}</td> -->
                     <td>{{jobApplication.referredBy}}</td>
                     <td>{{jobApplication.createdOn | date:'medium'}}</td>
                     <td>{{jobApplication.updatedOn | date:'medium'}}</td>

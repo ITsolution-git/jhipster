@@ -3,8 +3,9 @@
     angular
         .module('isoftnetApp')
         .controller('JobController', JobController);
-    JobController.$inject = ['$scope', '$state', 'Job', '$timeout'];
-    function JobController ($scope, $state, Job, $timeout) {
+    JobController.$inject = ['$scope', '$state', 'Job', '$timeout', '$stateParams', '$compile'];
+    function JobController ($scope, $state, Job, $timeout, $stateParams, $compile) {
+        $(".container").css('width', '100%');
         //  $rootScope.$on('event:social-sign-in-success', function(event, userDetails){
         //     // console.log(userDetails);
         // });
@@ -36,71 +37,98 @@
         // };
         var vm = this;
         
-        $timeout(function() {
-            $timeout(function(){
-                vm.table = $('#job-table').DataTable( {
-                    "columns": [
-                        { "orderable": false },
-                        { "orderable": false },
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        { "orderable": false },
-                    ],
-                    "order": [[2, 'asc']]
-                } );
-            function format ( d ) {
-                // `d` is the original data object for the row
-                    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-                        '<tr>'+
-                            '<td>Extra info:</td>'+
-                            '<td>And any further details here (images etc)...</td>'+
-                        '</tr>'+
-                    '</table>';
+        function format ( d ) {
+
+            var selectID = parseInt($(d[2]).html());
+            var selectJob;
+            for (var i = 0; i < vm.jobs.length; i++) {
+                if(selectID == vm.jobs[i].id){
+                    selectJob = i;
+                    break;
                 }
-         
+            }
+
+            childScope = $scope.$new();
+            childScope.job = vm.jobs[selectJob];
+            var compiledDirective = $compile('<job-detail ng-model="job"></job-detail');
+            return compiledDirective(childScope);
+        }
+        function expandorhide ( tr ) {
+
+            var row = vm.table.row( tr );
+            if( !row )
+                return;
+            if ( row.child.isShown() ) {
+                // This row is already open - close it
+                row.child.hide();
+                tr.removeClass('shown');
+                $(this).parent().removeClass("active");
+            }
+            else {
+                // Open this row
+                tr.addClass("active");
+                row.child( format( row.data()) ).show();
+                tr.addClass('shown');
+            }
+        }
+        $timeout(function() {
+            vm.table = $('#job-table').DataTable( {
+                "columns": [
+                    { "orderable": false },
+                    { "orderable": false },
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    // null,
+                    // null,
+                    // null,
+                    // null,
+                    // null,
+                    // null,
+                    // null,
+                    // null,
+                    // null,
+                    { "orderable": false },
+                ],
+                "order": [[2, 'asc']]
+            } );
             // Add event listener for opening and closing details
             $('#job-table tbody').on('click', 'td.details-control', function () {
-                var tr = $(this).closest('tr');
-                var row = vm.table.row( tr );
-         
-                if ( row.child.isShown() ) {
-                    // This row is already open - close it
-                    row.child.hide();
-                    tr.removeClass('shown');
-                }
-                else {
-                    // Open this row
-                    row.child( format( row.data()) ).show();
-                    tr.addClass('shown');
-                }
+
+                var tr = $("tr#tr_"+vm.openJobId);
+                expandorhide(tr);
+                tr = $(this).closest('tr');
+                expandorhide(tr);
             } );
-            }, 100);
+
+            if ($stateParams.openJobId != -1) {
+                var tr = $("tr#tr_"+$stateParams.openJobId);
+                expandorhide(tr);
+            }
         }, 1000);
         
         vm.selectIDs = [];
         vm.jobs = [];
+        vm.openJobId = $stateParams.openJobId;
         loadAll();
+        var childScope;
+
+        $scope.openJob = function(id){
+            $state.go("job", {
+                openJobId : id
+            });
+        }
         $scope.addCheck = function(id){
             if( vm.selectIDs.indexOf(id) == -1 )
                 vm.selectIDs.push(id);
