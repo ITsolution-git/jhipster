@@ -55,6 +55,9 @@ public class JobStatusResourceIntTest {
     private static final Long DEFAULT_JOB_ID = 1L;
     private static final Long UPDATED_JOB_ID = 2L;
 
+    private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
+    private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";
+
     @Inject
     private JobStatusRepository jobStatusRepository;
 
@@ -95,7 +98,8 @@ public class JobStatusResourceIntTest {
                 .comment(DEFAULT_COMMENT)
                 .createdOn(DEFAULT_CREATED_ON)
                 .updatedOn(DEFAULT_UPDATED_ON)
-                .jobId(DEFAULT_JOB_ID);
+                .jobId(DEFAULT_JOB_ID)
+                .createdBy(DEFAULT_CREATED_BY);
         return jobStatus;
     }
 
@@ -124,6 +128,7 @@ public class JobStatusResourceIntTest {
         assertThat(testJobStatus.getCreatedOn()).isEqualTo(DEFAULT_CREATED_ON);
         assertThat(testJobStatus.getUpdatedOn()).isEqualTo(DEFAULT_UPDATED_ON);
         assertThat(testJobStatus.getJobId()).isEqualTo(DEFAULT_JOB_ID);
+        assertThat(testJobStatus.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
     }
 
     @Test
@@ -196,7 +201,8 @@ public class JobStatusResourceIntTest {
             .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT.toString())))
             .andExpect(jsonPath("$.[*].createdOn").value(hasItem(sameInstant(DEFAULT_CREATED_ON))))
             .andExpect(jsonPath("$.[*].updatedOn").value(hasItem(sameInstant(DEFAULT_UPDATED_ON))))
-            .andExpect(jsonPath("$.[*].jobId").value(hasItem(DEFAULT_JOB_ID.intValue())));
+            .andExpect(jsonPath("$.[*].jobId").value(hasItem(DEFAULT_JOB_ID.intValue())))
+            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY.toString())));
     }
 
     @Test
@@ -213,7 +219,8 @@ public class JobStatusResourceIntTest {
             .andExpect(jsonPath("$.comment").value(DEFAULT_COMMENT.toString()))
             .andExpect(jsonPath("$.createdOn").value(sameInstant(DEFAULT_CREATED_ON)))
             .andExpect(jsonPath("$.updatedOn").value(sameInstant(DEFAULT_UPDATED_ON)))
-            .andExpect(jsonPath("$.jobId").value(DEFAULT_JOB_ID.intValue()));
+            .andExpect(jsonPath("$.jobId").value(DEFAULT_JOB_ID.intValue()))
+            .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY.toString()));
     }
 
     @Test
@@ -238,7 +245,8 @@ public class JobStatusResourceIntTest {
                 .comment(UPDATED_COMMENT)
                 .createdOn(UPDATED_CREATED_ON)
                 .updatedOn(UPDATED_UPDATED_ON)
-                .jobId(UPDATED_JOB_ID);
+                .jobId(UPDATED_JOB_ID)
+                .createdBy(UPDATED_CREATED_BY);
 
         restJobStatusMockMvc.perform(put("/api/job-statuses")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -253,6 +261,7 @@ public class JobStatusResourceIntTest {
         assertThat(testJobStatus.getCreatedOn()).isEqualTo(UPDATED_CREATED_ON);
         assertThat(testJobStatus.getUpdatedOn()).isEqualTo(UPDATED_UPDATED_ON);
         assertThat(testJobStatus.getJobId()).isEqualTo(UPDATED_JOB_ID);
+        assertThat(testJobStatus.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
     }
 
     @Test

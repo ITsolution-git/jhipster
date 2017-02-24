@@ -114,6 +114,9 @@ public class Job implements Serializable {
 
     @Column(name = "logo")
     private String logo;
+    
+    @Transient
+    private Boolean owner;
 
     public Long getId() {
         return id;
@@ -408,8 +411,18 @@ public class Job implements Serializable {
     public void setLogo(String logo) {
         this.logo = logo;
     }
+    
+    public Boolean getOwner()
+	{
+		return this.owner;
+	}
 
-    @Override
+	public void setOwner(Boolean owner)
+	{
+		this.owner = owner;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

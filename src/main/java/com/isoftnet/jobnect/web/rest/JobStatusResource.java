@@ -3,7 +3,6 @@ package com.isoftnet.jobnect.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.isoftnet.jobnect.domain.JobStatus;
 import com.isoftnet.jobnect.service.JobStatusService;
-import com.isoftnet.jobnect.service.dto.JobStatusDTO;
 import com.isoftnet.jobnect.web.rest.util.HeaderUtil;
 
 import org.slf4j.Logger;
@@ -17,7 +16,6 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,31 +49,6 @@ public class JobStatusResource {
         return ResponseEntity.created(new URI("/api/job-statuses/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("jobStatus", result.getId().toString()))
             .body(result);
-    }
-    
-    @PostMapping("/addJobStatus")
-    @Timed
-    public ResponseEntity<JobStatus> addJobStatus(@Valid @RequestBody JobStatusDTO jobStatusDTO) throws URISyntaxException {
-        
-    	log.debug("REST request to add JobStatus(es) : {}", jobStatusDTO);
-    	if (jobStatusDTO == null || jobStatusDTO.getJobIds() == null || jobStatusDTO.getJobIds().size() == 0) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("jobStatus", "none", "empty job status")).body(null);
-        }
-    	
-        for(Long jobId : jobStatusDTO.getJobIds())
-        {
-        	JobStatus jobStatus = new JobStatus();
-        	jobStatus.setComment(jobStatusDTO.getComment());
-        	jobStatus.setJobId(jobId);
-        	jobStatus.setCreatedOn(ZonedDateTime.now());
-        	jobStatus.setUpdatedOn(ZonedDateTime.now());
-        	JobStatus result = jobStatusService.save(jobStatus);
-        	
-        	if (result == null || result.getId() == null) {
-                return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("jobStatus", "failed", "failed to create job status")).body(null);
-            }
-        }
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
@@ -143,4 +116,5 @@ public class JobStatusResource {
         jobStatusService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("jobStatus", id.toString())).build();
     }
+
 }

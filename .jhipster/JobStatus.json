@@ -25,6 +25,10 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20170202112822",

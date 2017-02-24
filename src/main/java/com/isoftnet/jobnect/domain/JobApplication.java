@@ -52,6 +52,9 @@ public class JobApplication implements Serializable {
 
     @Column(name = "updated_on")
     private ZonedDateTime updatedOn;
+    
+    @Transient
+    private String applicantName;
 
     public Long getId() {
         return id;
@@ -164,8 +167,18 @@ public class JobApplication implements Serializable {
     public void setUpdatedOn(ZonedDateTime updatedOn) {
         this.updatedOn = updatedOn;
     }
+    
+	public String getApplicantName()
+	{
+		return this.applicantName;
+	}
 
-    @Override
+	public void setApplicantName(String applicantName)
+	{
+		this.applicantName = applicantName;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

@@ -99,6 +99,7 @@
                                 createdOn: null,
                                 updatedOn: null,
                                 jobId: null,
+                                createdBy: null,
                                 id: null
                             };
                         }
