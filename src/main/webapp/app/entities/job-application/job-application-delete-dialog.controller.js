@@ -3,26 +3,19 @@
 
     angular
         .module('isoftnetApp')
-        .controller('JobApplicationDeleteController',JobApplicationDeleteController);
+        .controller('JobApplicationDetailController', JobApplicationDetailController);
 
-    JobApplicationDeleteController.$inject = ['$uibModalInstance', 'entity', 'JobApplication'];
+    JobApplicationDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'JobApplication'];
 
-    function JobApplicationDeleteController($uibModalInstance, entity, JobApplication) {
+    function JobApplicationDetailController($scope, $rootScope, $stateParams, previousState, entity, JobApplication) {
         var vm = this;
 
         vm.jobApplication = entity;
-        vm.clear = clear;
-        vm.confirmDelete = confirmDelete;
+        vm.previousState = previousState.name;
 
-        function clear () {
-            $uibModalInstance.dismiss('cancel');
-        }
-
-        function confirmDelete (id) {
-            JobApplication.delete({id: id},
-                function () {
-                    $uibModalInstance.close(true);
-                });
-        }
+        var unsubscribe = $rootScope.$on('isoftnetApp:jobApplicationUpdate', function(event, result) {
+            vm.jobApplication = result;
+        });
+        $scope.$on('$destroy', unsubscribe);
     }
 })();

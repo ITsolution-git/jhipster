@@ -1,11 +1,21 @@
 
 <script type="text/ng-template" id="job-application-detail.directive.html">
-    <p>
-        {{jobApplication.coverNote}}
-    </p>
-    <p>
-        {{jobApplication.resumeName}}
-    </p>
+    <div class="pull-left">
+        <p>
+            Cover Note:{{jobApplication.coverNote}}
+        </p>
+        <p>
+            Resume:{{jobApplication.resumeName}}
+        </p>
+    </div>
+    <div class="pull-right">
+        
+        <span>
+            <a ng-click="sendMsg(jobApplication.id)">Send Message</a>|
+            <a ng-click="receipt(jobApplication.id)"> Acknowledge Receipt</a>|
+            <a ng-click="reject(jobApplication.id)">Reject</a>
+        </span>
+    </div>
 </script>
 <div>
     <h2>Job Applications</h2>
@@ -78,5 +88,10 @@
                 </tr>
             </tbody>
         </table>
+        
+        <button type="button"
+        ui-sref="job({openJobId:vm.openJobId})"
+        class="btn btn-primary btn-sm">Back
+        </button>
     </div>
 </div>

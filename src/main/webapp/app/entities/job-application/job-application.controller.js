@@ -23,10 +23,22 @@
                 }
             }
 
-            var childScope = $scope.$new();
+            childScope = $scope.$new();
             childScope.jobApplication = vm.jobApplications[selectJob];
+            childScope.openJobId = vm.openJobId;
+
+            childScope.sendMsg = function(app_id){
+                $state.go('job-application-sendmsg', { openJobId : vm.openJobId, id : app_id});
+            };
+            childScope.receipt = function(app_id){
+                
+            };
+            childScope.reject = function(app_id){
+                
+            }
+            
             var compiledDirective = $compile('<job-application-detail ng-model="jobApplication"></job-application-detail>');
-            return compiledDirective(vm);
+            return compiledDirective(childScope);
         }
         function expandorhide ( tr ) {
 
@@ -85,5 +97,7 @@
                 vm.searchQuery = null;
             });
         }
+
+        
     }
 })();

@@ -50,7 +50,8 @@
 
             childScope = $scope.$new();
             childScope.job = vm.jobs[selectJob];
-            var compiledDirective = $compile('<job-detail ng-model="job"></job-detail');
+            childScope.openJobId = vm.openJobId;
+            var compiledDirective = $compile('<job-detail open-job-id="openJobId" ng-model="job"></job-detail');
             return compiledDirective(childScope);
         }
         function expandorhide ( tr ) {
@@ -61,7 +62,7 @@
             if ( row.child.isShown() ) {
                 // This row is already open - close it
                 row.child.hide();
-                tr.removeClass('shown');
+                tr.removeClass('shown');    
                 $(this).parent().removeClass("active");
             }
             else {

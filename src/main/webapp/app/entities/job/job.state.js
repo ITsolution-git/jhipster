@@ -180,6 +180,29 @@
                 });
             }]
         })
+
+        // .state('job.job-rating', {
+        //     parent: 'job',
+        //     url: '/job-rating',
+        //     data: {
+        //         authorities: ['ROLE_USER']
+        //     },
+        //     onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+        //         $uibModal.open({
+        //             templateUrl: 'app/entities/job/job-rating-dialog.html',
+        //             controller: 'JobRatingDialogController',
+        //             controllerAs: 'vm',
+        //             backdrop: 'static',
+        //             size: 'lg',
+        //             resolve: {
+        //             }
+        //         }).result.then(function() {
+        //             $state.go('job', null, { reload: 'job' });
+        //         }, function() {
+        //             $state.go('job');
+        //         });
+        //     }]
+        // })
         .state('job.addstatus', {
             parent: 'job',
             url: '/addstatus',
@@ -192,7 +215,7 @@
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
                     templateUrl: 'app/entities/job/job-addstatus-dialog.html',
-                    controller: 'cccc',
+                    controller: 'JobAddStatusController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {

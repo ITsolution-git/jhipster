@@ -8,9 +8,7 @@
     function jobApplicationDetail() {
         var directive = {
             restrict: 'E',
-            scope   : {
-                jobApplication : '=ngModel',
-            },
+            scope   : false,
             templateUrl: 'job-application-detail.directive.html',
             link: linkFunc
         };
@@ -18,7 +16,7 @@
         return directive;
 
         function linkFunc(scope, element, attrs, parentCtrl) {
-            
+
             // scope.$on('tick', function(){
             //     el.append('-');
             // });

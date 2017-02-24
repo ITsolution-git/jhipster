@@ -57,6 +57,30 @@
                 }]
             }
         })
+        .state('job-application-sendmsg', {
+            parent: 'job-application',
+            url: '/job-application-sendmsg/{id}',
+            data: {
+                authorities: ['ROLE_USER'],
+                pageTitle: 'JobApplication'
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/entities/job-application/job-application-sendmsg-dialog.html',
+                    controller: 'JobApplicationSendmsgDialogController',
+                    controllerAs: 'vm',
+                    backdrop: 'static',
+                    size: 'lg',
+                    resolve: {
+                    }
+                }).result.then(function() {
+                    $state.go('^', {}, { reload: false });
+                }, function() {
+                    $state.go('^');
+                });
+            }]
+        })
+
         .state('job-application-detail.edit', {
             parent: 'job-application-detail',
             url: '/detail/edit',
