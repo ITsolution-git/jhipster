@@ -2,7 +2,9 @@ package com.isoftnet.jobnect.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.isoftnet.jobnect.domain.JobStatus;
+import com.isoftnet.jobnect.domain.User;
 import com.isoftnet.jobnect.service.JobStatusService;
+import com.isoftnet.jobnect.service.UserService;
 import com.isoftnet.jobnect.service.dto.JobStatusDTO;
 import com.isoftnet.jobnect.web.rest.util.HeaderUtil;
 
@@ -32,6 +34,9 @@ public class JobStatusResource {
         
     @Inject
     private JobStatusService jobStatusService;
+    
+    @Inject
+    private UserService userService;
 
     /**
      * POST  /job-statuses : Create a new jobStatus.
@@ -47,6 +52,11 @@ public class JobStatusResource {
         if (jobStatus.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("jobStatus", "idexists", "A new jobStatus cannot already have an ID")).body(null);
         }
+        
+        User user = userService.getUserWithAuthorities();
+        jobStatus.setCreatedBy(String.format("%s %s", user.getFirstName(), user.getLastName()));
+        jobStatus.setCreatedOn(ZonedDateTime.now());
+		jobStatus.setUpdatedOn(ZonedDateTime.now());
         JobStatus result = jobStatusService.save(jobStatus);
         return ResponseEntity.created(new URI("/api/job-statuses/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("jobStatus", result.getId().toString()))
@@ -55,27 +65,24 @@ public class JobStatusResource {
     
     @PostMapping("/addJobStatus")
     @Timed
-    public ResponseEntity<JobStatus> addJobStatus(@Valid @RequestBody JobStatusDTO jobStatusDTO) throws URISyntaxException {
+    public ResponseEntity<?> addJobStatus(@Valid @RequestBody JobStatusDTO jobStatusDTO) throws URISyntaxException {
         
-    	log.debug("REST request to add JobStatus(es) : {}", jobStatusDTO);
-    	if (jobStatusDTO == null || jobStatusDTO.getJobIds() == null || jobStatusDTO.getJobIds().size() == 0) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("jobStatus", "none", "empty job status")).body(null);
-        }
+    	log.debug("REST request to save JobStatus(es) : {}", jobStatusDTO);
     	
-        for(Long jobId : jobStatusDTO.getJobIds())
-        {
-        	JobStatus jobStatus = new JobStatus();
-        	jobStatus.setComment(jobStatusDTO.getComment());
-        	jobStatus.setJobId(jobId);
-        	jobStatus.setCreatedOn(ZonedDateTime.now());
-        	jobStatus.setUpdatedOn(ZonedDateTime.now());
-        	JobStatus result = jobStatusService.save(jobStatus);
-        	
-        	if (result == null || result.getId() == null) {
-                return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("jobStatus", "failed", "failed to create job status")).body(null);
-            }
-        }
-        return new ResponseEntity<>(HttpStatus.OK);
+    	User user = userService.getUserWithAuthorities();
+    	for(Long jobId : jobStatusDTO.getJobIds())
+    	{
+    		log.info("@adding status for job " + jobId);
+    		JobStatus jobStatus = new JobStatus();
+    		jobStatus.setJobId(jobId);
+    		jobStatus.setComment(jobStatusDTO.getComment());
+    		jobStatus.setCreatedOn(ZonedDateTime.now());
+    		jobStatus.setUpdatedOn(ZonedDateTime.now());
+    		jobStatus.setCreatedBy(String.format("%s %s", user.getFirstName(), user.getLastName()));
+    		jobStatusService.save(jobStatus);
+    	}
+    	
+    	return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
@@ -143,4 +150,5 @@ public class JobStatusResource {
         jobStatusService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("jobStatus", id.toString())).build();
     }
+
 }

@@ -2,7 +2,9 @@ package com.isoftnet.jobnect.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.isoftnet.jobnect.domain.Job;
+import com.isoftnet.jobnect.domain.User;
 import com.isoftnet.jobnect.service.JobService;
+import com.isoftnet.jobnect.service.UserService;
 import com.isoftnet.jobnect.web.rest.util.HeaderUtil;
 
 import org.slf4j.Logger;
@@ -16,6 +18,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +33,9 @@ public class JobResource {
         
     @Inject
     private JobService jobService;
+    
+    @Inject
+    private UserService userService;
 
     /**
      * POST  /jobs : Create a new job.
@@ -45,6 +51,12 @@ public class JobResource {
         if (job.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("job", "idexists", "A new job cannot already have an ID")).body(null);
         }
+        
+        User user = userService.getUserWithAuthorities();
+        job.setCreatedBy(user.getId());
+        job.setCreatedOn(ZonedDateTime.now());
+        job.setUpdatedOn(ZonedDateTime.now());
+        
         Job result = jobService.save(job);
         return ResponseEntity.created(new URI("/api/jobs/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("job", result.getId().toString()))
@@ -67,6 +79,8 @@ public class JobResource {
         if (job.getId() == null) {
             return createJob(job);
         }
+        
+        job.setUpdatedOn(ZonedDateTime.now());
         Job result = jobService.save(job);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("job", job.getId().toString()))
@@ -82,7 +96,12 @@ public class JobResource {
     @Timed
     public List<Job> getAllJobs() {
         log.debug("REST request to get all Jobs");
-        return jobService.findAll();
+        // return jobService.findAll();
+        
+        User user = userService.getUserWithAuthorities();
+        List<Job> jobs = jobService.findAll();
+        for(Job job : jobs) job.setOwner((user.getId().equals(job.getCreatedBy())));
+        return jobs;
     }
 
     /**
@@ -96,11 +115,18 @@ public class JobResource {
     public ResponseEntity<Job> getJob(@PathVariable Long id) {
         log.debug("REST request to get Job : {}", id);
         Job job = jobService.findOne(id);
+        
+        if(job == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        
+        User user = userService.getUserWithAuthorities();
+        job.setOwner((user.getId().equals(job.getCreatedBy())));
+        return new ResponseEntity<>(job, HttpStatus.OK);
+        
+        /*
         return Optional.ofNullable(job)
-            .map(result -> new ResponseEntity<>(
-                result,
-                HttpStatus.OK))
+            .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+         */
     }
 
     /**

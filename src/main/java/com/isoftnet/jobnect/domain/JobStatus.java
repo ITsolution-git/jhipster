@@ -38,6 +38,9 @@ public class JobStatus implements Serializable {
     @Column(name = "job_id", nullable = false)
     private Long jobId;
 
+    @Column(name = "created_by")
+    private String createdBy;
+
     public Long getId() {
         return id;
     }
@@ -98,6 +101,19 @@ public class JobStatus implements Serializable {
         this.jobId = jobId;
     }
 
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public JobStatus createdBy(String createdBy) {
+        this.createdBy = createdBy;
+        return this;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -126,6 +142,7 @@ public class JobStatus implements Serializable {
             ", createdOn='" + createdOn + "'" +
             ", updatedOn='" + updatedOn + "'" +
             ", jobId='" + jobId + "'" +
+            ", createdBy='" + createdBy + "'" +
             '}';
     }
 }

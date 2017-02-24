@@ -2,7 +2,12 @@ package com.isoftnet.jobnect.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.isoftnet.jobnect.domain.JobApplication;
+import com.isoftnet.jobnect.domain.User;
+import com.isoftnet.jobnect.domain.enumeration.Status;
 import com.isoftnet.jobnect.service.JobApplicationService;
+import com.isoftnet.jobnect.service.MailService;
+import com.isoftnet.jobnect.service.UserService;
+import com.isoftnet.jobnect.service.dto.MessageDTO;
 import com.isoftnet.jobnect.web.rest.util.HeaderUtil;
 
 import org.slf4j.Logger;
@@ -16,6 +21,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +36,12 @@ public class JobApplicationResource {
         
     @Inject
     private JobApplicationService jobApplicationService;
+    
+    @Inject
+    private UserService userService;
+    
+    @Inject
+    private MailService mailService;
 
     /**
      * POST  /job-applications : Create a new jobApplication.
@@ -45,6 +57,9 @@ public class JobApplicationResource {
         if (jobApplication.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("jobApplication", "idexists", "A new jobApplication cannot already have an ID")).body(null);
         }
+        
+        jobApplication.setCreatedOn(ZonedDateTime.now());
+        jobApplication.setUpdatedOn(ZonedDateTime.now());
         JobApplication result = jobApplicationService.save(jobApplication);
         return ResponseEntity.created(new URI("/api/job-applications/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("jobApplication", result.getId().toString()))
@@ -67,6 +82,8 @@ public class JobApplicationResource {
         if (jobApplication.getId() == null) {
             return createJobApplication(jobApplication);
         }
+        
+        jobApplication.setUpdatedOn(ZonedDateTime.now());
         JobApplication result = jobApplicationService.save(jobApplication);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("jobApplication", jobApplication.getId().toString()))
@@ -116,5 +133,45 @@ public class JobApplicationResource {
         jobApplicationService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("jobApplication", id.toString())).build();
     }
-
+    
+    @PostMapping("/message")
+    @Timed
+    public ResponseEntity<?> sendMessage(@Valid @RequestBody MessageDTO message) throws URISyntaxException {
+        log.debug("REST request to send Message to Applicant : {}", message);
+        
+        JobApplication jobApplication = jobApplicationService.findOne(message.getId());
+        User user = userService.getUserWithAuthorities(jobApplication.getUserId());
+        
+        // send email to user
+        mailService.sendEmail(user.getEmail(), "Job Application", message.getMessage(), false, false);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    
+    @PostMapping("/application/received")
+    @Timed
+    public ResponseEntity<?> ackReceived(@Valid @RequestBody Long applicationId) throws URISyntaxException {
+        log.debug("REST ackReceived : {}", applicationId);
+        
+        JobApplication jobApplication = jobApplicationService.findOne(applicationId);
+        User user = userService.getUserWithAuthorities(jobApplication.getUserId());
+        
+        // send email to user
+        mailService.sendEmail(user.getEmail(), "Job Application", "Application Received", false, false);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    
+    @PostMapping("/application/reject")
+    @Timed
+    public ResponseEntity<?> ackRejected(@Valid @RequestBody Long applicationId) throws URISyntaxException {
+        log.debug("REST ackReceived : {}", applicationId);
+        
+        JobApplication jobApplication = jobApplicationService.findOne(applicationId);
+        jobApplication.setStatus(Status.REJECTED);
+        jobApplicationService.save(jobApplication);
+         
+        // send email to user
+        User user = userService.getUserWithAuthorities(jobApplication.getUserId());
+        mailService.sendEmail(user.getEmail(), "Job Application", "Application Rejected", false, false);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
