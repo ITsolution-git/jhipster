@@ -16,6 +16,9 @@
                 authorities: ['ROLE_USER'],
                 pageTitle: 'JobStatuses'
             },
+            params: {
+                openJobId: -1
+            },
             views: {
                 'content@': {
                     templateUrl: 'app/entities/job-status/job-statuses.html',
@@ -98,8 +101,7 @@
                                 comment: null,
                                 createdOn: null,
                                 updatedOn: null,
-                                jobId: null,
-                                createdBy: null,
+                                jobId: $stateParams.openJobId,
                                 id: null
                             };
                         }

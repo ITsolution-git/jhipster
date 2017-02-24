@@ -14,7 +14,10 @@
             url: '/job',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'Jobs'
+                pageTitle: 'Jobs',
+            },
+            params: {
+                openJobId: 9
             },
             views: {
                 'content@': {
