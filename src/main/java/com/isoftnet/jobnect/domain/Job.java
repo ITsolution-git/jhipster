@@ -16,7 +16,7 @@ import com.isoftnet.jobnect.domain.enumeration.JobType;
 import com.isoftnet.jobnect.domain.enumeration.Status;
 
 import com.isoftnet.jobnect.domain.enumeration.WorkPermit;
-
+import com.isoftnet.jobnect.domain.enumeration.Currency;
 import com.isoftnet.jobnect.domain.enumeration.Industry;
 
 /**
@@ -52,7 +52,7 @@ public class Job implements Serializable {
     @NotNull
     @Column(name = "referral_fee", nullable = false)
     private Double referralFee;
-
+    
     @NotNull
     @Size(max = 50)
     @Column(name = "short_description", length = 50, nullable = false)
