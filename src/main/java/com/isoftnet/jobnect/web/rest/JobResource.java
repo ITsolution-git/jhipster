@@ -116,9 +116,9 @@ public class JobResource {
         log.debug("REST request to get Job : {}", id);
         Job job = jobService.findOne(id);
         
-        if(job == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        
         User user = userService.getUserWithAuthorities();
+        if(job == null || user == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+       
         job.setOwner((user.getId().equals(job.getCreatedBy())));
         return new ResponseEntity<>(job, HttpStatus.OK);
         
