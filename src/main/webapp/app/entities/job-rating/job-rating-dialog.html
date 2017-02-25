@@ -1,19 +1,19 @@
 
 <form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
 
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                ng-click="vm.clear()">&times;</button>
-        <h4 class="modal-title" id="myJobRatingLabel">Create or edit a Job Rating</h4>
-    </div>
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                    ng-click="vm.clear()">&times;</button>
+            <h4 class="modal-title" id="myJobRatingLabel">Create or edit a Job Rating</h4>
+        </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" ng-show="vm.jobRating.id">
+        <div class="form-group hidden" ng-show="vm.jobRating.id">
             <label for="id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
                     ng-model="vm.jobRating.id" readonly />
         </div>
-        <div class="form-group">
+        <div class="form-group hidden">
             <label class="control-label" for="field_userId">User Id</label>
             <input type="number" class="form-control" name="userId" id="field_userId"
                     ng-model="vm.jobRating.userId"
@@ -29,11 +29,12 @@
                 </p>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group hidden">
             <label class="control-label" for="field_jobId">Job Id</label>
             <input type="number" class="form-control" name="jobId" id="field_jobId"
                     ng-model="vm.jobRating.jobId"
                     required />
+
             <div ng-show="editForm.jobId.$invalid">
                 <p class="help-block"
                     ng-show="editForm.jobId.$error.required">
@@ -45,11 +46,12 @@
                 </p>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group-horizontal">
             <label class="control-label" for="field_comment">Comment</label>
             <input type="text" class="form-control" name="comment" id="field_comment"
                     ng-model="vm.jobRating.comment"
                     ng-maxlength="50" />
+
             <div ng-show="editForm.comment.$invalid">
                 <p class="help-block"
                     ng-show="editForm.comment.$error.maxlength">
@@ -62,6 +64,7 @@
             <input type="number" class="form-control" name="responsive" id="field_responsive"
                     ng-model="vm.jobRating.responsive"
                     required />
+            <ng-rate-it ng-model="vm.jobRating.responsive" step=1 min=0 max=10 class="form-control"></ng-rate-it>
             <div ng-show="editForm.responsive.$invalid">
                 <p class="help-block"
                     ng-show="editForm.responsive.$error.required">

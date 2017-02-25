@@ -15,7 +15,8 @@
             'infinite-scroll',
             // jhipster-needle-angularjs-add-module JHipster will add new module here
             'angular-loading-bar',
-            'socialLogin'
+            'socialLogin',
+            'ngRateIt'
         ])
         //77hfi22ynd7v4c from client
         .config(['socialProvider', function(socialProvider){

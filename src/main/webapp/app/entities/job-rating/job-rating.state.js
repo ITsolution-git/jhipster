@@ -16,6 +16,9 @@
                 authorities: ['ROLE_USER'],
                 pageTitle: 'JobRatings'
             },
+            params:{
+                openJobId: -1
+            },
             views: {
                 'content@': {
                     templateUrl: 'app/entities/job-rating/job-ratings.html',
