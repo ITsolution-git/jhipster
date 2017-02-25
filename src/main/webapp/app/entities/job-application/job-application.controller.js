@@ -43,7 +43,7 @@
                     // $uibModalInstance.close(true);
                 })
             }
-            
+            childScope.isOwner = vm.job.userId == vm.user.id;
             var compiledDirective = $compile('<job-application-detail ng-model="jobApplication"></job-application-detail>');
             return compiledDirective(childScope);
         }
@@ -119,10 +119,11 @@
         });
         function loadAll() {
             JobApplication.query(function(result) {
-                for (var i = 0; i < result.length; i++) {
-                    if(result[i].userId == vm.user.id)
-                        vm.jobApplications.push(result[i]);
-                }
+                // for (var i = 0; i < result.length; i++) {
+                //     if(result[i].userId == vm.user.id)
+                //         vm.jobApplications.push(result[i]);
+                // }
+                vm.jobApplications = result;
                 vm.searchQuery = null;
             });
         }

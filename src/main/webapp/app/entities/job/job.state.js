@@ -96,34 +96,37 @@
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: function () {
-                            return {
-                                title: null,
-                                profession: null,
-                                duration: null,
-                                term: null,
-                                referralFee: null,
-                                shortDescription: null,
-                                longDescription: null,
-                                type: null,
-                                status: null,
-                                workPermit: null,
-                                skill: null,
-                                createdOn: null,
-                                updatedOn: null,
-                                jobGroup: null,
-                                renewable: null,
-                                salary: null,
-                                jobURL: null,
-                                industry: null,
-                                createdBy: null,
-                                companyId: null,
-                                attachement: null,
-                                logo: null,
-                                id: null
-                            };
-                        }
+                        entity: ['Principal', function (Principal) {
+                            return Principal.identity().then(function(account) {
+                                return {
+                                    title: null,
+                                    profession: null,
+                                    duration: null,
+                                    term: null,
+                                    referralFee: null,
+                                    shortDescription: null,
+                                    longDescription: null,
+                                    type: null,
+                                    status: null,
+                                    workPermit: null,
+                                    skill: null,
+                                    createdOn: null,
+                                    updatedOn: null,
+                                    jobGroup: null,
+                                    renewable: null,
+                                    salary: null,
+                                    jobURL: null,
+                                    industry: null,
+                                    createdBy: account.id,
+                                    companyId: null,
+                                    attachement: null,
+                                    logo: null,
+                                    id: null
+                                };
+                            });
+                        }]
                     }
+
                 }).result.then(function() {
                     $state.go('job', null, { reload: 'job' });
                 }, function() {

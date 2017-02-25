@@ -6,7 +6,7 @@
     <span style="float:left;margin-right: 100px">
         postedBy:{{username}}
     </span>
-    <span style="float:right">
+    <span style="float:right" >
         <a ui-sref="job-application({openJobId:job.id})">Applicants</a>|
         <a ui-sref="job-rating({openJobId:job.id})">Rating</a>|
         <a ui-sref="job-status({openJobId:job.id})">Status</a>|
@@ -61,19 +61,21 @@
     <span class="glyphicon glyphicon-remove-circle"></span>
     <span class="hidden-xs hidden-sm"></span>
     </button>-->
-    <button type="submit"
-    ui-sref="job.edit({id:job.id})"
-    class="btn btn-primary btn-sm">Edit
-    </button>
+    <div  ng-if="isOwner">
+        <button type="submit"
+        ui-sref="job.edit({id:job.id})"
+        class="btn btn-primary btn-sm">Edit
+        </button>
 
-    <button type="submit"
-    ui-sref="job.delete({id:job.id})"
-    class="btn btn-warning btn-sm">Close
-    </button>
-    <button type="submit"
-    ui-sref="job.delete({id:job.id})"
-    class="btn btn-danger btn-sm">Delete
-    </button>
+        <button type="submit"
+        ui-sref="job.delete({id:job.id})"
+        class="btn btn-warning btn-sm">Close
+        </button>
+        <button type="submit"
+        ui-sref="job.delete({id:job.id})"
+        class="btn btn-danger btn-sm">Delete
+        </button>
+    </div>
 </script>
 <div>
     <h2>Jobs</h2>
@@ -164,7 +166,7 @@
                     <!-- <td>{{job.attachement}}</td>
                     <td>{{job.logo}}</td> -->
                     <td class="text-right">
-                        <div class="btn-group flex-btn-group-container">
+                        <div class="btn-group flex-btn-group-container" ng-if="vm.user.id==job.createdBy">
                             <button type="submit"
                             ui-sref="job-detail({id:job.id})"
                             class="btn btn-info btn-sm">
