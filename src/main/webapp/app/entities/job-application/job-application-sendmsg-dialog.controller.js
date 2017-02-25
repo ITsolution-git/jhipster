@@ -5,9 +5,9 @@
         .module('isoftnetApp')
         .controller('JobApplicationSendmsgDialogController', JobApplicationSendmsgDialogController);
 
-    JobApplicationSendmsgDialogController.$inject = ['$scope', '$rootScope', '$stateParams', 'JobApplication', '$uibModalInstance'];
+    JobApplicationSendmsgDialogController.$inject = ['$scope', '$rootScope', '$stateParams', 'JobApplication', '$uibModalInstance', '$http'];
 
-    function JobApplicationSendmsgDialogController($scope, $rootScope, $stateParams, JobApplication, $uibModalInstance) {
+    function JobApplicationSendmsgDialogController($scope, $rootScope, $stateParams, JobApplication, $uibModalInstance, $http) {
         var vm = this;
         
         vm.clear = clear;
@@ -17,13 +17,12 @@
         }
 
         function sendMsg () {
-            console.log("sendmsg job_id" + $stateParams.openJobId + "    id" + $stateParams.id);
-            // $http.post('api/addJobStatus', {
-            //     comment: vm.comment,
-            //     jobIds: $stateParams.selectIDs
-            // }).then(function(response){
-            //     $uibModalInstance.close(true);
-            // })
+            $http.post('api/message', {
+                we: vm.message,
+                id: $stateParams.id
+            }).then(function(response){
+                $uibModalInstance.close(true);
+            })
         }
     }
 })();

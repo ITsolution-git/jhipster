@@ -1,5 +1,5 @@
 <div>
-    <h2>Job Ratings</h2>
+    <h2>My Job Ratings on {{vm.job.title}}</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
@@ -19,9 +19,9 @@
             <thead>
                 <tr>
                     <th><span>ID</span></th>
-                    <th><span>User Id</span></th>
+                    <!-- <th><span>User Id</span></th>
                     <th><span>Job Id</span></th>
-                    <th><span>Comment</span></th>
+                    <th><span>Comment</span></th> -->
                     <th><span>Responsive</span></th>
                     <th><span>Truthful</span></th>
                     <th><span>Reliable</span></th>
@@ -29,7 +29,7 @@
                     <th><span>Efficient</span></th>
                     <th><span>Effective</span></th>
                     <th><span>Overall</span></th>
-                    <th><span>Created On</span></th>
+                    <!-- <th><span>Created On</span></th> -->
                     <th><span>Informative</span></th>
                     <th></th>
                 </tr>
@@ -37,18 +37,18 @@
             <tbody>
                 <tr ng-repeat="jobRating in vm.jobRatings track by jobRating.id">
                     <td><a ui-sref="job-rating-detail({id:jobRating.id})">{{jobRating.id}}</a></td>
-                    <td>{{jobRating.userId}}</td>
+                    <!-- <td>{{jobRating.userId}}</td>
                     <td>{{jobRating.jobId}}</td>
-                    <td>{{jobRating.comment}}</td>
-                    <td>{{jobRating.responsive}}</td>
-                    <td>{{jobRating.truthful}}</td>
-                    <td>{{jobRating.reliable}}</td>
-                    <td>{{jobRating.professional}}</td>
-                    <td>{{jobRating.efficient}}</td>
-                    <td>{{jobRating.effective}}</td>
-                    <td>{{jobRating.overall}}</td>
-                    <td>{{jobRating.createdOn | date:'medium'}}</td>
-                    <td>{{jobRating.informative}}</td>
+                    <td>{{jobRating.comment}}</td> -->    
+                    <td><ng-rate-it ng-model="jobRating.responsive" step=1 min=0 max=10 class="col-xs-6" read-only=true></ng-rate-it></td>
+                    <td><ng-rate-it ng-model="jobRating.truthful" step=1 min=0 max=10 class="col-xs-6" read-only=true></ng-rate-it></td>
+                    <td><ng-rate-it ng-model="jobRating.reliable" step=1 min=0 max=10 class="col-xs-6" read-only=true></ng-rate-it></td>
+                    <td><ng-rate-it ng-model="jobRating.professional" step=1 min=0 max=10 class="col-xs-6" read-only=true></ng-rate-it></td>
+                    <td><ng-rate-it ng-model="jobRating.efficient" step=1 min=0 max=10 class="col-xs-6" read-only=true></ng-rate-it></td>
+                    <td><ng-rate-it ng-model="jobRating.effective" step=1 min=0 max=10 class="col-xs-6" read-only=true></ng-rate-it></td>
+                    <td><ng-rate-it ng-model="jobRating.overall" step=1 min=0 max=10 class="col-xs-6" read-only=true></ng-rate-it></td>
+                    <!-- <td>{{jobRating.createdOn | date:'medium'}}</td> -->
+                    <td><ng-rate-it ng-model="jobRating.informative" step=1 min=0 max=10 class="col-xs-6" read-only=true></ng-rate-it></td>                    
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

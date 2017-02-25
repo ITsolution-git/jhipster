@@ -2,23 +2,23 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="vm.clear()">&times;</button>
-        <h4 class="modal-title">Add status to selected jobs</h4>
+        <h4 class="modal-title">Send Message</h4>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
 
-        <p>Write Some comments</p>
+        <p>Write Message</p>
         <div class="form-group">
-            <label class="control-label" for="field_title">Comment</label>
+            <label class="control-label" for="field_title">Message</label>
 
-            <textarea class="form-control" ng-model="vm.comment"  name="comment" id=field_comment required ng-maxlength="255"></textarea>
-            <div ng-show="msgForm.comment.$invalid">
+            <textarea class="form-control" ng-model="vm.message"  name="message" id=field_message required ng-maxlength="255"></textarea>
+            <div ng-show="msgForm.message.$invalid">
                 <p class="help-block"
-                    ng-show="msgForm.comment.$error.required">
+                    ng-show="msgForm.message.$error.required">
                     This field is required.
                 </p>
                 <p class="help-block"
-                    ng-show="msgForm.comment.$error.maxlength">
+                    ng-show="msgForm.message.$error.maxlength">
                     This field cannot be longer than 255 characters.
                 </p>
             </div>

@@ -110,27 +110,27 @@
                 <tr>
                     <th></th>
                     <th data-orderable="false"></th>
-                    <th><span>ID</span></th>
+                    <th class="hidden"><span>ID</span></th>
                     <th><span>Title</span></th>
-                    <th><span>Profession</span></th>
+                    <!-- <th><span>Profession</span></th> -->
                     <th><span>Duration</span></th>
-                    <th><span>Term</span></th>
+                    <!-- <th><span>Term</span></th> -->
                     <th><span>Referral Fee</span></th>
                     <!-- <th><span>Short Description</span></th>
                     <th><span>Long Description</span></th> -->
                     <th><span>Type</span></th>
                     <th><span>Status</span></th>
-                    <th><span>Work Permit</span></th>
-                    <th><span>Skill</span></th>
+                    <!-- <th><span>Work Permit</span></th> -->
+                    <!-- <th><span>Skill</span></th> -->
                     <!-- <th><span>Created On</span></th>
                     <th><span>Updated On</span></th> -->
-                    <th><span>Job Group</span></th>
-                    <th><span>Renewable</span></th>
+                    <!-- <th><span>Job Group</span></th> -->
+                    <!-- <th><span>Renewable</span></th> -->
                     <th><span>Salary</span></th>
                     <!-- <th><span>Job URL</span></th>
                     <th><span>Industry</span></th> -->
                     <!-- <th><span>Created By</span></th> -->
-                    <th><span>Company Id</span></th>
+                    <!-- <th><span>Company Id</span></th> -->
                     <!-- <th><span>Attachement</span></th>
                     <th><span>Logo</span></th> -->
                     <th></th>
@@ -140,27 +140,27 @@
                 <tr ng-repeat="job in vm.jobs track by job.id" id="tr_{{job.id}}">
                     <td><input type="checkbox" ng-click="addCheck(job.id)"></td>
                     <td class="details-control" ng-click="rowExpanded[row.name]=!rowExpanded[job.id]"></td>
-                    <td><a ui-sref="job-detail({id:job.id})">{{job.id}}</a></td>
+                    <td class="hidden"><a ui-sref="job-detail({id:job.id})">{{job.id}}</a></td>
                     <td>{{job.title}}</td>
-                    <td>{{job.profession}}</td>
-                    <td>{{job.duration}}</td>
-                    <td>{{job.term}}</td>
+                    <!-- <td>{{job.profession}}</td> -->
+                    <td>{{job.duration}} {{job.term}}(S)</td>
+                    <!-- <td>{{job.term}}</td> -->
                     <td>{{job.referralFee}}</td>
                     <!-- <td>{{job.shortDescription}}</td>
                     <td>{{job.longDescription}}</td> -->
                     <td>{{job.type}}</td>
                     <td>{{job.status}}</td>
-                    <td>{{job.workPermit}}</td>
-                    <td>{{job.skill}}</td>
+                    <!-- <td>{{job.workPermit}}</td> -->
+                    <!-- <td>{{job.skill}}</td> -->
                     <!-- <td>{{job.createdOn | date:'medium'}}</td>
                     <td>{{job.updatedOn | date:'medium'}}</td> -->
-                    <td>{{job.jobGroup}}</td>
-                    <td>{{job.renewable}}</td>
+                    <!-- <td>{{job.jobGroup}}</td> -->
+                    <!-- <td>{{job.renewable}}</td> -->
                     <td>{{job.salary}}</td>
                     <!-- <td>{{job.jobURL}}</td>
                     <td>{{job.industry}}</td> -->
                     <!-- <td>{{job.createdBy}}</td> -->
-                    <td>{{job.companyId}}</td>
+                    <!-- <td>{{job.companyId}}</td> -->
                     <!-- <td>{{job.attachement}}</td>
                     <td>{{job.logo}}</td> -->
                     <td class="text-right">
