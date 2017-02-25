@@ -112,9 +112,7 @@ public class AccountResource {
     	
     	User user = userService.getUserWithAuthorities();
     	if(user == null) return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-    	
-    	UserDTO userDTO = new UserDTO(user, user.getId());
-    	return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
+    	return new ResponseEntity<>(new UserDTO(user, user.getId()), HttpStatus.OK);
     	
     	/*
         return Optional.ofNullable(userService.getUserWithAuthorities())
