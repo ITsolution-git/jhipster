@@ -5,9 +5,10 @@
         .module('isoftnetApp')
         .controller('JobApplicationController', JobApplicationController);
 
-    JobApplicationController.$inject = ['$scope', '$state', 'JobApplication', '$timeout', '$stateParams', '$compile', 'Job'];
+    JobApplicationController.$inject = ['$scope', '$state', 'JobApplication', '$timeout', '$stateParams', '$compile', 'Job', 'Principal', 'job', '$http'];
 
-    function JobApplicationController ($scope, $state, JobApplication,  $timeout, $stateParams, $compile, Job) {
+    function JobApplicationController ($scope, $state, JobApplication,  $timeout, $stateParams, $compile, Job, Principal, job, $http) {
+        $(".container").css('width', '100%');
         var vm = this;
 
         var vm = this;
@@ -31,10 +32,16 @@
                 $state.go('job-application-sendmsg', { openJobId : vm.openJobId, id : app_id});
             };
             childScope.receipt = function(app_id){
-                
+                $http.post('/api/application/received', app_id)
+                .then(function(response){
+                    // $uibModalInstance.close(true);
+                })
             };
             childScope.reject = function(app_id){
-                
+                $http.post('/api/application/reject', app_id)
+                .then(function(response){
+                    // $uibModalInstance.close(true);
+                })
             }
             
             var compiledDirective = $compile('<job-application-detail ng-model="jobApplication"></job-application-detail>');
@@ -78,9 +85,28 @@
             } );
 
         }, 1000);
+
+        var copyAccount = function (account) {
+            return {
+                id: account.id,
+                activated: account.activated,
+                email: account.email,
+                firstName: account.firstName,
+                langKey: account.langKey,
+                lastName: account.lastName,
+                login: account.login
+            };
+        };
+        Principal.identity().then(function(account) {
+            vm.user = copyAccount(account);
+
+            loadAll();
+        });
+        vm.user = {};
+        vm.job = job;
+
         vm.jobApplications = [];
         var childScope;
-        loadAll();
         vm.openJobId = $stateParams.openJobId;
 
         if(vm.openJobId == -1)
@@ -93,7 +119,10 @@
         });
         function loadAll() {
             JobApplication.query(function(result) {
-                vm.jobApplications = result;
+                for (var i = 0; i < result.length; i++) {
+                    if(result[i].userId == vm.user.id)
+                        vm.jobApplications.push(result[i]);
+                }
                 vm.searchQuery = null;
             });
         }

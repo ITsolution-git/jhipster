@@ -48,9 +48,9 @@
         </div>
         <div class="form-group-horizontal">
             <label class="control-label" for="field_comment">Comment</label>
-            <input type="text" class="form-control" name="comment" id="field_comment"
+            <textarea type="text" class="form-control" name="comment" id="field_comment"
                     ng-model="vm.jobRating.comment"
-                    ng-maxlength="50" />
+                    ng-maxlength="50" ></textarea>
 
             <div ng-show="editForm.comment.$invalid">
                 <p class="help-block"
@@ -59,12 +59,12 @@
                 </p>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label" for="field_responsive">Responsive</label>
-            <input type="number" class="form-control" name="responsive" id="field_responsive"
+        <div class="form-group row">
+            <label class="control-label col-xs-6" for="field_responsive">Responsive</label>
+            <!-- <input type="number" class="form-control" name="responsive" id="field_responsive"
                     ng-model="vm.jobRating.responsive"
-                    required />
-            <ng-rate-it ng-model="vm.jobRating.responsive" step=1 min=0 max=10 class="form-control"></ng-rate-it>
+                    required /> -->
+            <ng-rate-it ng-model="vm.jobRating.responsive" step=1 min=0 max=10 class="col-xs-6"></ng-rate-it>
             <div ng-show="editForm.responsive.$invalid">
                 <p class="help-block"
                     ng-show="editForm.responsive.$error.required">
@@ -76,11 +76,13 @@
                 </p>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label" for="field_truthful">Truthful</label>
+        <div class="form-group row">
+            <label class="control-label col-xs-6" for="field_truthful">Truthful</label><!-- 
             <input type="number" class="form-control" name="truthful" id="field_truthful"
                     ng-model="vm.jobRating.truthful"
-                    required />
+                    required /> -->
+
+            <ng-rate-it ng-model="vm.jobRating.truthful" step=1 min=0 max=10 class="col-xs-6"></ng-rate-it>
             <div ng-show="editForm.truthful.$invalid">
                 <p class="help-block"
                     ng-show="editForm.truthful.$error.required">
@@ -92,11 +94,13 @@
                 </p>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label" for="field_reliable">Reliable</label>
-            <input type="text" class="form-control" name="reliable" id="field_reliable"
+        <div class="form-group row">
+            <label class="control-label col-xs-6" for="field_reliable">Reliable</label>
+            <!-- <input type="text" class="form-control" name="reliable" id="field_reliable"
                     ng-model="vm.jobRating.reliable"
-                    required />
+                    required /> -->
+
+            <ng-rate-it ng-model="vm.jobRating.reliable" step=1 min=0 max=10 class="col-xs-6"></ng-rate-it>
             <div ng-show="editForm.reliable.$invalid">
                 <p class="help-block"
                     ng-show="editForm.reliable.$error.required">
@@ -104,11 +108,12 @@
                 </p>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label" for="field_professional">Professional</label>
-            <input type="number" class="form-control" name="professional" id="field_professional"
+        <div class="form-group row">
+            <label class="control-label col-xs-6" for="field_professional">Professional</label>
+            <!-- <input type="number" class="form-control" name="professional" id="field_professional"
                     ng-model="vm.jobRating.professional"
-                    required />
+                    required /> -->
+            <ng-rate-it ng-model="vm.jobRating.professional" step=1 min=0 max=10 class="col-xs-6"></ng-rate-it>
             <div ng-show="editForm.professional.$invalid">
                 <p class="help-block"
                     ng-show="editForm.professional.$error.required">
@@ -120,11 +125,12 @@
                 </p>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label" for="field_efficient">Efficient</label>
-            <input type="number" class="form-control" name="efficient" id="field_efficient"
+        <div class="form-group row">
+            <label class="control-label col-xs-6" for="field_efficient">Efficient</label>
+            <!-- <input type="number" class="form-control" name="efficient" id="field_efficient"
                     ng-model="vm.jobRating.efficient"
-                    required />
+                    required /> -->
+            <ng-rate-it ng-model="vm.jobRating.efficient" step=1 min=0 max=10 class="col-xs-6"></ng-rate-it>
             <div ng-show="editForm.efficient.$invalid">
                 <p class="help-block"
                     ng-show="editForm.efficient.$error.required">
@@ -136,11 +142,12 @@
                 </p>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label" for="field_effective">Effective</label>
-            <input type="number" class="form-control" name="effective" id="field_effective"
+        <div class="form-group row">
+            <label class="control-label col-xs-6" for="field_effective">Effective</label>
+            <!-- <input type="number" class="form-control" name="effective" id="field_effective"
                     ng-model="vm.jobRating.effective"
-                    required />
+                    required /> -->
+            <ng-rate-it ng-model="vm.jobRating.effective" step=1 min=0 max=10 class="col-xs-6"></ng-rate-it>
             <div ng-show="editForm.effective.$invalid">
                 <p class="help-block"
                     ng-show="editForm.effective.$error.required">
@@ -152,11 +159,13 @@
                 </p>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label" for="field_overall">Overall</label>
-            <input type="number" class="form-control" name="overall" id="field_overall"
+        <div class="form-group row">
+            <label class="control-label col-xs-6" for="field_overall">Overall</label>
+            <!-- <input type="number" class="form-control" name="overall" id="field_overall"
                     ng-model="vm.jobRating.overall"
-                    required />
+                    required /> -->
+
+            <ng-rate-it ng-model="vm.jobRating.overall" step=1 min=0 max=10 class="col-xs-6"></ng-rate-it>
             <div ng-show="editForm.overall.$invalid">
                 <p class="help-block"
                     ng-show="editForm.overall.$error.required">
@@ -168,7 +177,7 @@
                 </p>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group hidden">
             <label class="control-label" for="field_createdOn">Created On</label>
                 <div class="input-group">
                     <input id="field_createdOn" type="text" class="form-control" name="createdOn" datetime-picker="{{dateformat}}" ng-model="vm.jobRating.createdOn" is-open="vm.datePickerOpenStatus.createdOn"
@@ -178,11 +187,13 @@
                     </span>
                 </div>
         </div>
-        <div class="form-group">
-            <label class="control-label" for="field_informative">Informative</label>
-            <input type="number" class="form-control" name="informative" id="field_informative"
+        <div class="form-group row">
+            <label class="control-label col-xs-6" for="field_informative">Informative</label>
+            <!-- <input type="number" class="form-control" name="informative" id="field_informative"
                     ng-model="vm.jobRating.informative"
-                    required />
+                    required /> -->
+
+            <ng-rate-it ng-model="vm.jobRating.informative" step=1 min=0 max=10 class="col-xs-6"></ng-rate-it>
             <div ng-show="editForm.informative.$invalid">
                 <p class="help-block"
                     ng-show="editForm.informative.$error.required">

@@ -94,17 +94,23 @@
                     controller: 'JobStatusDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
-                    size: 'lg',
+                    size: 'md',
                     resolve: {
-                        entity: function () {
-                            return {
-                                comment: null,
-                                createdOn: null,
-                                updatedOn: null,
-                                jobId: $stateParams.openJobId,
-                                id: null
-                            };
-                        }
+                        entity: ['Principal', function (Principal) {
+                            
+
+                            return Principal.identity().then(function(account) {
+                                return {
+                                    comment: null,
+                                    createdOn: null,
+                                    updatedOn: null,
+                                    jobId: $stateParams.openJobId,
+                                    userId: account.id,
+                                    id: null    
+                                }
+                            });
+                        }]
+
                     }
                 }).result.then(function() {
                     $state.go('job-status', null, { reload: 'job-status' });

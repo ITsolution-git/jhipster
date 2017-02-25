@@ -11,13 +11,10 @@
         $stateProvider
         .state('job-application', {
             parent: 'entity',
-            url: '/job-application',
+            url: '/job-application/view/:openJobId',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'JobApplications'
-            },
-            params:{
-                openJobId: 9
             },
             views: {
                 'content@': {
@@ -27,6 +24,9 @@
                 }
             },
             resolve: {
+                job: ['$stateParams', 'Job', function($stateParams, Job) {
+                    return Job.get({id : $stateParams.openJobId}).$promise;
+                }],
             }
         })
         .state('job-application-detail', {
@@ -120,19 +120,23 @@
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: function () {
-                            return {
-                                jobId: $stateParams.openJobId,
-                                coverNote: null,
-                                resumeName: null,
-                                status: null,
-                                userId: null,
-                                referredBy: null,
-                                createdOn: null,
-                                updatedOn: null,
-                                id: null
-                            };
-                        }
+
+                        entity: ['Principal', '$stateParams', function (Principal, $stateParams) {
+
+                            return Principal.identity().then(function(account) {
+                                return {
+                                    jobId: parseInt($stateParams.openJobId),
+                                    coverNote: null,
+                                    resumeName: null,
+                                    status: null,
+                                    userId: account.id,
+                                    referredBy: null,
+                                    createdOn: null,
+                                    updatedOn: null,
+                                    id: null
+                                };
+                            });
+                        }]
                     }
                 }).result.then(function() {
                     $state.go('job-application', null, { reload: 'job-application' });

@@ -3,8 +3,8 @@
     angular
         .module('isoftnetApp')
         .controller('JobController', JobController);
-    JobController.$inject = ['$scope', '$state', 'Job', '$timeout', '$stateParams', '$compile'];
-    function JobController ($scope, $state, Job, $timeout, $stateParams, $compile) {
+    JobController.$inject = ['$scope', '$state', 'Job', '$timeout', '$stateParams', '$compile', 'Principal'];
+    function JobController ($scope, $state, Job, $timeout, $stateParams, $compile, Principal) {
         $(".container").css('width', '100%');
         //  $rootScope.$on('event:social-sign-in-success', function(event, userDetails){
         //     // console.log(userDetails);
@@ -47,30 +47,27 @@
                     break;
                 }
             }
-
             childScope = $scope.$new();
             childScope.job = vm.jobs[selectJob];
-            childScope.openJobId = vm.openJobId;
-            var compiledDirective = $compile('<job-detail open-job-id="openJobId" ng-model="job"></job-detail');
+            vm.openJobId = selectID;
+            var compiledDirective = $compile('<job-detail ng-model="job"></job-detail');
             return compiledDirective(childScope);
         }
-        function expandorhide ( tr ) {
-
+        function hide ( tr ) {
             var row = vm.table.row( tr );
             if( !row )
                 return;
-            if ( row.child.isShown() ) {
-                // This row is already open - close it
-                row.child.hide();
-                tr.removeClass('shown');    
-                $(this).parent().removeClass("active");
-            }
-            else {
-                // Open this row
-                tr.addClass("active");
-                row.child( format( row.data()) ).show();
-                tr.addClass('shown');
-            }
+            row.child.hide();
+            tr.removeClass('shown');    
+            $(this).parent().removeClass("active");
+        }
+        function expand ( tr ) {
+            var row = vm.table.row( tr );
+            if( !row )
+                return;
+            tr.addClass("active");
+            row.child( format( row.data()) ).show();
+            tr.addClass('shown');
         }
         $timeout(function() {
             vm.table = $('#job-table').DataTable( {
@@ -84,13 +81,13 @@
                     null,
                     null,
                     null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
+                    // null,
+                    // null,
+                    // null,
+                    // null,
+                    // null,
+                    // null,
+                    // null,
                     // null,
                     // null,
                     // null,
@@ -106,19 +103,54 @@
             } );
             // Add event listener for opening and closing details
             $('#job-table tbody').on('click', 'td.details-control', function () {
-
-                var tr = $("tr#tr_"+vm.openJobId);
-                expandorhide(tr);
-                tr = $(this).closest('tr');
-                expandorhide(tr);
+                // This row is already open - close it
+                if(vm.openJobId != -1){
+                    var tr = $(this).closest('tr');
+                    var row = vm.table.row( tr );
+                    if( !row )
+                        return;
+                    var d = row.data()
+                    var selectID = parseInt($(d[2]).html());
+                    if(vm.openJobId == selectID){
+                        hide(tr);
+                        vm.openJobId = -1;
+                    }
+                    else{
+                        tr = $("tr#tr_"+vm.openJobId);
+                        hide(tr);
+                        tr = $(this).closest('tr');
+                        expand(tr);
+                    }
+                }
+                else{
+                    var tr = $(this).closest('tr');
+                    expand(tr);
+                }
+                console.log(vm.openJobId);
             } );
 
             if ($stateParams.openJobId != -1) {
                 var tr = $("tr#tr_"+$stateParams.openJobId);
-                expandorhide(tr);
+                expand(tr);
             }
         }, 1000);
         
+
+        var copyAccount = function (account) {
+            return {
+                id: account.id,
+                activated: account.activated,
+                email: account.email,
+                firstName: account.firstName,
+                langKey: account.langKey,
+                lastName: account.lastName,
+                login: account.login
+            };
+        };
+        Principal.identity().then(function(account) {
+            vm.user = copyAccount(account);
+        });
+        vm.user = {};
         vm.selectIDs = [];
         vm.jobs = [];
         vm.openJobId = $stateParams.openJobId;

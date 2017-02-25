@@ -11,13 +11,10 @@
         $stateProvider
         .state('job-rating', {
             parent: 'entity',
-            url: '/job-rating',
+            url: '/job-rating/:openJobId',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'JobRatings'
-            },
-            params:{
-                openJobId: -1
             },
             views: {
                 'content@': {
@@ -27,6 +24,9 @@
                 }
             },
             resolve: {
+                job: ['$stateParams', 'Job', function($stateParams, Job) {
+                    return Job.get({id : $stateParams.openJobId}).$promise;
+                }],
             }
         })
         .state('job-rating-detail', {
@@ -94,25 +94,29 @@
                     controller: 'JobRatingDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
-                    size: 'lg',
+                    size: 'xs',
                     resolve: {
-                        entity: function () {
-                            return {
-                                userId: null,
-                                jobId: null,
-                                comment: null,
-                                responsive: null,
-                                truthful: null,
-                                reliable: null,
-                                professional: null,
-                                efficient: null,
-                                effective: null,
-                                overall: null,
-                                createdOn: null,
-                                informative: null,
-                                id: null
-                            };
-                        }
+
+                        entity: ['Principal', '$stateParams', function (Principal, $stateParams) {
+
+                            return Principal.identity().then(function(account) {
+                                return {
+                                    userId: account.id,
+                                    jobId: parseInt($stateParams.openJobId),
+                                    comment: null,
+                                    responsive: null,
+                                    truthful: null,
+                                    reliable: null,
+                                    professional: null,
+                                    efficient: null,
+                                    effective: null,
+                                    overall: null,
+                                    createdOn: null,
+                                    informative: null,
+                                    id: null  
+                                }
+                            });
+                        }]
                     }
                 }).result.then(function() {
                     $state.go('job-rating', null, { reload: 'job-rating' });
