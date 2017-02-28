@@ -8,6 +8,7 @@
     JobRatingController.$inject = ['$scope', '$state', 'JobRating', '$stateParams', 'Principal', 'job'];
 
     function JobRatingController ($scope, $state, JobRating, $stateParams, Principal, job) {
+        $(".container").css('width', '100%');
         var vm = this;
 
         vm.jobRatings = [];

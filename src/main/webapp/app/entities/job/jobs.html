@@ -1,23 +1,30 @@
 <script type="text/ng-template" id="job-datatable-detail.directive.html">
-    <h4>{{job.title}}</h4>
-    <span style="float:left;margin-right: 100px">
-        {{job.createdOn | date:'medium'}}
-    </span>
-    <span style="float:left;margin-right: 100px">
-        postedBy:{{username}}
-    </span>
-    <span style="float:right" >
-        <a ui-sref="job-application({openJobId:job.id})">Applicants</a>|
-        <a ui-sref="job-rating({openJobId:job.id})">Rating</a>|
-        <a ui-sref="job-status({openJobId:job.id})">Status</a>|
-    </span>
-    <div style="clear:both">
+    <h3>{{job.title}}</h3>
+    <div class="job-detail-line">
+        <span style="float:left;margin-right: 100px">
+            {{job.createdOn | date:'medium'}}
+        </span>
+        <span style="float:left;margin-right: 100px">
+            Posted By:{{username}}
+        </span>
+        <span style="float:right" >
+            <a ui-sref="job-application({openJobId:job.id})" ng-if="isOwner">Applicants</a><span ng-if="isOwner">|</span>
+            <a ui-sref="job-rating({openJobId:job.id})" ng-if="isOwner">Rating</a><span ng-if="isOwner">|</span>
+            <a ui-sref="job-status({openJobId:job.id})" ng-if="isOwner">Status</a>
+            <a ui-sref="job-application-sendmsg({openJobId:job.id})" ng-if="!isOwner">Send Message</a><span ng-if="!isOwner">|</span>
+            <a ui-sref="job-application.new({openJobId:job.id})" ng-if="!isOwner">Apply</a>
+        </span>
+        <div style="clear:both">
 
+        </div>
     </div>
-    <p>
-        {{job.shortDescription}}
+    <p class="job-detail-description">
+        {{job.longDescription}}
     </p>
-    <table class="table-borders">
+    <span class="job-detail-link">
+        Job Posted <a href="{{job.jobURL}}">Here</a>
+    </span>
+    <table class="table-borders active-background">
         <thead>
             <tr>
                 <th>Job #</th>
@@ -61,7 +68,6 @@
     <span class="glyphicon glyphicon-remove-circle"></span>
     <span class="hidden-xs hidden-sm"></span>
     </button>-->
-    {{isOwner}}
     <div  ng-if="isOwner">
         <button type="submit"
         ui-sref="job.edit({id:job.id})"

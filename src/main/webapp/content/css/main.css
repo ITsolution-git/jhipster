@@ -364,3 +364,20 @@ ui bootstrap tweaks
 #job-table tbody tr.active td{
     background-color: #ffffff !important;
 }
+#job-table tbody tr.active+tr  td{
+    background-color: #ecfbff !important;
+}
+#job-table tbody tr.active+tr  td job-detail table.active-background th{
+    background-color: #ecfbff !important;
+}
+#job-table tbody tr.active+tr  td job-detail .job-detail-line{
+    border-top: 1px dashed #949494; 
+    border-bottom: 1px dashed #949494;
+    padding: 5px 10px;
+}
+#job-table tbody tr.active+tr  td job-detail h3{
+    font-size: 26px;
+}
+#job-table tbody tr.active+tr  td job-detail .job-detail-description{
+    font-size: 16px;
+}

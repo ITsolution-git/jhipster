@@ -43,7 +43,7 @@
                     // $uibModalInstance.close(true);
                 })
             }
-            childScope.isOwner = vm.job.userId == vm.user.id;
+            childScope.isOwner = vm.job.createdBy == vm.user.id;
             var compiledDirective = $compile('<job-application-detail ng-model="jobApplication"></job-application-detail>');
             return compiledDirective(childScope);
         }
@@ -99,7 +99,7 @@
         };
         Principal.identity().then(function(account) {
             vm.user = copyAccount(account);
-
+            vm.isOwner = vm.user.id == vm.job.createdBy;
             loadAll();
         });
         vm.user = {};
@@ -112,11 +112,7 @@
         if(vm.openJobId == -1)
             $state.go('job');
 
-        vm.job = {};
-        Job.get({id : $stateParams.openJobId}).$promise
-        .then(function(job){
-            vm.job = job;
-        });
+        vm.job = job;
         function loadAll() {
             JobApplication.query(function(result) {
                 // for (var i = 0; i < result.length; i++) {

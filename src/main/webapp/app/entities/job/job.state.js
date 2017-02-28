@@ -17,7 +17,7 @@
                 pageTitle: 'Jobs',
             },
             params: {
-                openJobId: 8
+                openJobId: 1
             },
             views: {
                 'content@': {

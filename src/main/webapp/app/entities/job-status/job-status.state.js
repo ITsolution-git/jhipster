@@ -11,13 +11,10 @@
         $stateProvider
         .state('job-status', {
             parent: 'entity',
-            url: '/job-status',
+            url: '/job-status/:openJobId',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'JobStatuses'
-            },
-            params: {
-                openJobId: -1
             },
             views: {
                 'content@': {
@@ -27,6 +24,9 @@
                 }
             },
             resolve: {
+                job: ['$stateParams', 'Job', function($stateParams, Job) {
+                    return Job.get({id : $stateParams.openJobId}).$promise;
+                }],
             }
         })
         .state('job-status-detail', {

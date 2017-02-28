@@ -22,7 +22,7 @@
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-4 no-padding-left"  ng-if="jobApplication.jobId == vm.job.id">
+            <div class="col-xs-4 no-padding-left"  ng-if="vm.isOwner">
                 <button class="btn btn-primary" ui-sref="job-application.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span>
@@ -64,7 +64,7 @@
                     <td>{{jobApplication.createdOn | date:'medium'}}</td>
                     <td>{{jobApplication.updatedOn | date:'medium'}}</td>
                     <td class="text-right">
-                        <div class="btn-group flex-btn-group-container" ng-if="jobApplication.userId == vm.job.userId">
+                        <div class="btn-group flex-btn-group-container" ng-if="vm.isOwner">
                             <button type="submit"
                                     ui-sref="job-application-detail({id:jobApplication.id})"
                                     class="btn btn-info btn-sm">

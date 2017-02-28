@@ -60,7 +60,7 @@
                 return;
             row.child.hide();
             tr.removeClass('shown');    
-            $(this).parent().removeClass("active");
+            $(tr).removeClass("active");
         }
         function expand ( tr ) {
             var row = vm.table.row( tr );
