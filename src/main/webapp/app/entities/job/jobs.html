@@ -61,6 +61,7 @@
     <span class="glyphicon glyphicon-remove-circle"></span>
     <span class="hidden-xs hidden-sm"></span>
     </button>-->
+    {{isOwner}}
     <div  ng-if="isOwner">
         <button type="submit"
         ui-sref="job.edit({id:job.id})"

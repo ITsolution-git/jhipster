@@ -8,9 +8,7 @@
     function jobDetail() {
         var directive = {
             restrict: 'E',
-            scope   : {
-                job        : '=ngModel',
-            },
+            scope   : false,
             templateUrl: 'job-datatable-detail.directive.html',
             link: linkFunc
         };

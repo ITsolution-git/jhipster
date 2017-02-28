@@ -50,7 +50,7 @@
             childScope = $scope.$new();
             childScope.job = vm.jobs[selectJob];
             vm.openJobId = selectID;
-            childScope.isOwner = vm.jobs[selectJob].userId == vm.user.id;
+            childScope.isOwner = vm.jobs[selectJob].createdBy == vm.user.id;
             var compiledDirective = $compile('<job-detail ng-model="job"></job-detail');
             return compiledDirective(childScope);
         }
